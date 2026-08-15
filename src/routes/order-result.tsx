@@ -8,6 +8,52 @@ export const Route = createFileRoute("/order-result")({
   component: OrderResult,
 });
 
+type StatusDetail = {
+  title: string;
+  description: string;
+  color: string;
+  icon: string;
+};
+
+const statusInfo: Record<string, StatusDetail> = {
+  paid: {
+    title: 'Pagamento Aprovado!',
+    description: 'Seu pedido foi confirmado. Você receberá os detalhes em breve.',
+    color: 'text-green-500',
+    icon: 'fa-circle-check'
+  },
+  pending: {
+    title: 'Aguardando Pagamento',
+    description: 'Estamos aguardando a confirmação do seu pagamento pelo PagBank.',
+    color: 'text-yellow-500',
+    icon: 'fa-clock'
+  },
+  in_analysis: {
+    title: 'Em Análise',
+    description: 'Seu pagamento está sendo analisado pelo PagBank. Isso pode levar alguns minutos.',
+    color: 'text-blue-500',
+    icon: 'fa-magnifying-glass'
+  },
+  declined: {
+    title: 'Pagamento Recusado',
+    description: 'Infelizmente seu pagamento não foi aprovado pela operadora.',
+    color: 'text-red-500',
+    icon: 'fa-circle-xmark'
+  },
+  canceled: {
+    title: 'Pedido Cancelado',
+    description: 'Este pedido foi cancelado.',
+    color: 'text-gray-500',
+    icon: 'fa-ban'
+  },
+  expired: {
+    title: 'Pedido Expirado',
+    description: 'O tempo para pagamento expirou.',
+    color: 'text-orange-500',
+    icon: 'fa-hourglass-end'
+  }
+};
+
 function OrderResult() {
   const { referenceId } = Route.useSearch() as { referenceId: string };
 
@@ -48,45 +94,6 @@ function OrderResult() {
       </div>
     </div>
   );
-
-  const statusInfo: Record<string, { title: string, description: string, color: string, icon: string }> = {
-    paid: {
-      title: 'Pagamento Aprovado!',
-      description: 'Seu pedido foi confirmado. Você receberá os detalhes em breve.',
-      color: 'text-green-500',
-      icon: 'fa-circle-check'
-    },
-    pending: {
-      title: 'Aguardando Pagamento',
-      description: 'Estamos aguardando a confirmação do seu pagamento pelo PagBank.',
-      color: 'text-yellow-500',
-      icon: 'fa-clock'
-    },
-    in_analysis: {
-      title: 'Em Análise',
-      description: 'Seu pagamento está sendo analisado pelo PagBank. Isso pode levar alguns minutos.',
-      color: 'text-blue-500',
-      icon: 'fa-magnifying-glass'
-    },
-    declined: {
-      title: 'Pagamento Recusado',
-      description: 'Infelizmente seu pagamento não foi aprovado pela operadora.',
-      color: 'text-red-500',
-      icon: 'fa-circle-xmark'
-    },
-    canceled: {
-      title: 'Pedido Cancelado',
-      description: 'Este pedido foi cancelado.',
-      color: 'text-gray-500',
-      icon: 'fa-ban'
-    },
-    expired: {
-      title: 'Pedido Expirado',
-      description: 'O tempo para pagamento expirou.',
-      color: 'text-orange-500',
-      icon: 'fa-hourglass-end'
-    }
-  };
 
   const currentStatus = statusInfo[order.status] || statusInfo['pending'];
 
