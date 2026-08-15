@@ -54,8 +54,8 @@ function Index() {
       </header>
 
       {/* Tickets */}
-      <section className="py-16 md:py-24 px-4 md:px-8 max-w-6xl mx-auto">
-        <div className="flex justify-center mb-12">
+      <section className="py-16 md:py-24 px-4 md:px-8 max-w-6xl mx-auto -mt-20 relative z-20">
+        <div className="flex justify-center mb-8">
           <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 rounded-full font-bold text-base transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,69,0,0.4)]">
             COMPRAR INGRESSOS AGORA
           </button>
