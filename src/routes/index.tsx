@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import rushHero from "@/assets/rush_hero.jpg.asset.json";
+import { Instagram, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
