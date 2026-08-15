@@ -101,7 +101,7 @@ function OrderResult() {
     </div>
   );
 
-  const currentStatus = statusInfo[order.status] || statusInfo['unknown'];
+  const currentStatus: StatusDetail = statusInfo[order.status] || statusInfo['unknown']!;
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 font-sans text-foreground">
