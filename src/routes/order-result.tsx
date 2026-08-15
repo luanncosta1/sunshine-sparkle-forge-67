@@ -51,6 +51,12 @@ const statusInfo: Record<string, StatusDetail> = {
     description: 'O tempo para pagamento expirou.',
     color: 'text-orange-500',
     icon: 'fa-hourglass-end'
+  },
+  unknown: {
+    title: 'Status Desconhecido',
+    description: 'Não conseguimos identificar o status do seu pagamento.',
+    color: 'text-gray-500',
+    icon: 'fa-circle-question'
   }
 };
 
@@ -95,7 +101,7 @@ function OrderResult() {
     </div>
   );
 
-  const currentStatus = statusInfo[order.status] || statusInfo['pending'];
+  const currentStatus = statusInfo[order.status] || statusInfo['unknown'];
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 font-sans text-foreground">
