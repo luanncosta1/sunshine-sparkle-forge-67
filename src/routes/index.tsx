@@ -53,6 +53,36 @@ function Index() {
           ))}
         </div>
       </section>
+      {/* Schedule and Map */}
+      <section className="py-24 px-8 max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+        <div>
+          <h2 className="font-['Archivo_Black'] text-4xl mb-12 text-primary">PROGRAMAÇÃO</h2>
+          <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-primary/30">
+            {[
+              { time: "20:00 - 21:00", artist: "PISTA" },
+              { time: "21:00 - 22:30", artist: "DJ RENATO" },
+              { time: "22:30 - 00:00", artist: "VIBE BAND" },
+              { time: "00:00 - 02:00", artist: "HEADLINER" },
+            ].map((item) => (
+              <div key={item.artist} className="pl-8 relative">
+                <div className="absolute left-0 top-2 size-4 rounded-full bg-primary" />
+                <div className="text-sm text-primary font-bold">{item.time}</div>
+                <div className="text-xl font-bold">{item.artist}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2 className="font-['Archivo_Black'] text-4xl mb-12 text-primary">MAPA DO EVENTO</h2>
+          <div className="aspect-square bg-card border border-border rounded-2xl overflow-hidden relative">
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1000')] bg-cover opacity-20 grayscale" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="size-8 bg-primary rounded-full animate-ping opacity-75" />
+              <div className="absolute size-4 bg-primary rounded-full shadow-[0_0_20px_rgba(255,69,0,0.8)]" />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer / Meta */}
       <footer className="border-t border-border py-12 px-8 text-sm">
