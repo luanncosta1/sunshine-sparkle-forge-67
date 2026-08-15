@@ -2,27 +2,27 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { TICKET_PRICES, createPagBankCheckout } from "./pagbank.server";
-import { supabase } from "@/integrations/supabase/client";
 
 export const createCheckout = createServerFn({ method: "POST" })
   .inputValidator((data) => z.object({
     ticketType: z.string(),
-    quantity: z.number().min(1)
+    quantity: z.number().int().min(1).max(20)
   }).parse(data))
   .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { ticketType, quantity } = data;
-    
+
     // 1. Validate price in backend
     const unitPrice = TICKET_PRICES[ticketType];
     if (!unitPrice) {
       throw new Error(`Invalid ticket type: ${ticketType}`);
     }
-    
+
     const totalPrice = unitPrice * quantity;
-    const referenceId = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const referenceId = `ORD-${Date.now()}-${crypto.randomUUID()}`;
 
     // 2. Create order in database (pending)
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error: orderError } = await supabaseAdmin
       .from('orders')
       .insert({
         ticket_type: ticketType,
@@ -58,10 +58,36 @@ export const createCheckout = createServerFn({ method: "POST" })
     const checkoutUrl = checkout.links.find((l: any) => l.rel === 'PAY')?.href;
     const checkoutId = checkout.id;
 
-    await supabase
+    await supabaseAdmin
       .from('orders')
       .update({ pagbank_checkout_id: checkoutId })
       .eq('id', order.id);
 
     return { checkoutUrl };
+  });
+
+// Returns only non-sensitive fields for a single order, looked up by its
+// unguessable reference id. Orders are no longer readable directly from the client.
+export const getOrderByReference = createServerFn({ method: "POST" })
+  .inputValidator((data) => z.object({
+    referenceId: z.string().min(8).max(120)
+  }).parse(data))
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: order, error } = await supabaseAdmin
+      .from('orders')
+      .select('reference_id, ticket_type, quantity, total_price, status')
+      .eq('reference_id', data.referenceId)
+      .maybeSingle();
+
+    if (error) {
+      console.error('Order lookup error:', error);
+      throw new Error('Failed to load order');
+    }
+    if (!order) {
+      throw new Error('Order not found');
+    }
+
+    return order;
   });

@@ -1,18 +1,17 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 import { mapPagBankStatus } from '@/lib/pagbank.server'
-import { supabase } from '@/integrations/supabase/client'
 
 export const Route = createFileRoute('/api/public/pagbank-webhook')({
   server: {
     handlers: {
       POST: async ({ request }) => {
         try {
+          const { supabaseAdmin } = await import('@/integrations/supabase/client.server');
           const body = await request.json();
-          console.log('PagBank Webhook received:', body);
 
-          const referenceId = body.reference_id;
-          const pagBankStatus = body.status;
+          const referenceId = body?.reference_id;
+          const pagBankStatus = body?.status;
 
           if (!referenceId || !pagBankStatus) {
             return new Response('Invalid payload', { status: 400 });
@@ -20,9 +19,9 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
 
           const internalStatus = mapPagBankStatus(pagBankStatus);
 
-          const { error } = await supabase
+          const { error } = await supabaseAdmin
             .from('orders')
-            .update({ 
+            .update({
               status: internalStatus,
               updated_at: new Date().toISOString()
             })
