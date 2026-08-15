@@ -119,11 +119,21 @@ function Index() {
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 text-center sm:text-left">
           <div className="space-y-4 flex flex-col items-center sm:items-start order-2 sm:order-1">
             <h4 className="font-bold w-full text-center">SOCIAL</h4>
-            <div className="flex gap-6 justify-center w-full">
-              <a href="#" className="text-2xl hover:text-primary transition-colors">
+            <div className="flex gap-8 justify-center w-full">
+              <a 
+                href="https://www.instagram.com/seu_perfil" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-4xl hover:text-primary transition-colors hover:scale-110"
+              >
                 <i className="fa-brands fa-instagram"></i>
               </a>
-              <a href="#" className="text-2xl hover:text-primary transition-colors">
+              <a 
+                href="https://wa.me/5500000000000?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20o%20RUSH%20Night." 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-4xl hover:text-primary transition-colors hover:scale-110"
+              >
                 <i className="fa-brands fa-whatsapp"></i>
               </a>
             </div>
