@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
+    <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
       {/* Navbar */}
       <nav className="fixed w-full z-50 flex items-center justify-between px-4 md:px-8 py-2 md:py-3 bg-background/80 backdrop-blur-md border-b border-white/10">
         <div className="flex-1 flex justify-start">
@@ -51,7 +51,7 @@ function Index() {
       <section className="py-16 md:py-24 px-4 md:px-8 max-w-6xl mx-auto -mt-20 relative z-20">
         {/* Lower section background starting from the button */}
         <div 
-          className="absolute inset-0 top-[20px] -bottom-[100%] left-[-50vw] right-[-50vw] bg-cover bg-center pointer-events-none opacity-30 z-[-1]" 
+          className="absolute inset-0 top-[20px] -bottom-[100%] left-0 right-0 bg-cover bg-center pointer-events-none opacity-30 z-[-1]" 
           style={{ backgroundImage: `url(${bgAsset.url})` }}
         />
 
