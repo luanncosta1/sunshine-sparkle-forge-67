@@ -88,9 +88,8 @@ function Index() {
           <h2 className="font-['Archivo_Black'] text-3xl md:text-4xl mb-8 md:12 text-primary">PROGRAMAÇÃO</h2>
           <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-primary/30">
             {[
-              { time: "23:00 - 01:00", artist: "DJ NOVA" },
-              { time: "01:00 - 03:00", artist: "DJ KAIRO" },
-              { time: "03:00 - 05:00", artist: "DJ VYBE" },
+              { time: "07.FEV", artist: "A PARTIR DAS 21H" },
+              { time: "ELAS FREE", artist: "ATÉ ÀS 22H" },
             ].map((item) => (
               <div key={item.artist} className="pl-8 relative">
                 <div className="absolute left-0 top-2 size-4 rounded-full bg-primary" />
