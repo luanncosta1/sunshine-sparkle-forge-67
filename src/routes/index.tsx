@@ -98,7 +98,7 @@ function Index() {
 
       {/* Footer / Meta */}
       <footer className="border-t border-border py-12 px-8 text-sm">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
           <div className="space-y-4">
             <h4 className="font-bold">SOCIAL</h4>
             <div className="flex gap-4">
