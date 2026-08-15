@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import rushHero from "@/assets/rush_hero.jpg.asset.json";
 import logoAsset from "@/assets/club_do_raul_logo.png.asset.json";
 import esquentaHero from "@/assets/esquenta_clube_do_raul.png.asset.json";
+import bgAsset from "@/assets/BG.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,6 +49,12 @@ function Index() {
 
       {/* Tickets */}
       <section className="py-16 md:py-24 px-4 md:px-8 max-w-6xl mx-auto -mt-20 relative z-20">
+        {/* Lower section background starting from the button */}
+        <div 
+          className="absolute inset-0 top-[20px] -bottom-[100%] left-[-50vw] right-[-50vw] bg-cover bg-center pointer-events-none opacity-30 z-[-1]" 
+          style={{ backgroundImage: `url(${bgAsset.url})` }}
+        />
+
         <div className="flex justify-center mb-8">
           <button 
             onClick={() => window.open('https://wa.me/+5577998498472?text=Olá! Vim pelo site, quero mais informações sobre os ingressos.', '_blank')}
@@ -106,7 +113,16 @@ function Index() {
       </section>
 
       {/* Footer / Meta */}
-      <footer className="border-t border-border py-12 px-8 text-sm">
+      <footer className="border-t border-border py-12 px-8 text-sm relative z-20 overflow-hidden">
+        {/* Continue background in footer */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center pointer-events-none opacity-30 z-[-1]" 
+          style={{ 
+            backgroundImage: `url(${bgAsset.url})`,
+            backgroundPosition: 'center bottom'
+          }} 
+        />
+
         <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 text-center sm:text-left">
           <div className="space-y-4 flex flex-col items-center sm:items-start order-2 sm:order-1">
             <h4 className="font-bold w-full text-center">SOCIAL</h4>
