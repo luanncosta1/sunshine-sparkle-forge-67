@@ -116,14 +116,19 @@ function Index() {
 
       {/* Footer / Meta */}
       <footer className="border-t border-border py-12 px-8 text-sm">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
-          <div className="space-y-4">
-            <h4 className="font-bold">SOCIAL</h4>
-            <div className="flex gap-4">
-               {["Facebook", "Twitter", "Instagram", "YouTube"].map(s => <span key={s} className="size-8 rounded-full bg-muted flex items-center justify-center text-xs">{s[0]}</span>)}
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 text-center sm:text-left">
+          <div className="space-y-4 flex flex-col items-center sm:items-start order-2 sm:order-1">
+            <h4 className="font-bold w-full text-center">SOCIAL</h4>
+            <div className="flex gap-6 justify-center w-full">
+              <a href="#" className="text-2xl hover:text-primary transition-colors">
+                <i className="fa-brands fa-instagram"></i>
+              </a>
+              <a href="#" className="text-2xl hover:text-primary transition-colors">
+                <i className="fa-brands fa-whatsapp"></i>
+              </a>
             </div>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-4 order-3 sm:order-2">
             <h4 className="font-bold">TERMOS</h4>
             <ul className="space-y-2 text-muted-foreground">
               <li>Início</li>
