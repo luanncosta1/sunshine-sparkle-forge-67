@@ -129,7 +129,7 @@ function Index() {
                 <i className="fa-brands fa-instagram"></i>
               </a>
               <a 
-                href="https://wa.me/5500000000000?text=Olá!%20Gostaria%20de%20mais%20informações%20sobre%20o%20RUSH%20Night." 
+                href="https://api.whatsapp.com/send?phone=557798498472&text=Ol%C3%A1!%20Vi%20o%20perfil%20do%20Clube%20do%20Raul%20e%20quero%20saber%20mais%20sobre%20a%20resenha%20%F0%9F%8D%BB%F0%9F%94%A5&fbclid=PAT01DUATtdU9wZG9mAmV4dG4DYWVtAjEwAHNydGMGYXBwX2lkDzU2NzA2NzM0MzM1MjQyNwABp4Kbt26_iD5KaFqy-3u5oN7pKZRIKpndrEmAa5PUYK-LGGNqaQawga8YEXz-_aem_W2bnNeD8Q-LNKcp8Kh1IDw" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-4xl hover:text-primary transition-colors hover:scale-110"
