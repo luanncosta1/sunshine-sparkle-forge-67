@@ -1,4 +1,4 @@
-const CACHE_NAME = 'raul-v2';
+const CACHE_NAME = 'raul-v3';
 const ASSETS = [
   '/',
   '/favicon.png',
