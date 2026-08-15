@@ -1,7 +1,8 @@
 
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
+import { getOrderByReference } from "@/lib/payments.functions";
 import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/order-result")({
@@ -63,18 +64,11 @@ const statusInfo: Record<string, StatusDetail> = {
 function OrderResult() {
   const { referenceId } = Route.useSearch() as { referenceId: string };
 
+  const fetchOrder = useServerFn(getOrderByReference);
+
   const { data: order, isLoading, error } = useQuery({
     queryKey: ['order', referenceId],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('orders')
-        .select('*')
-        .eq('reference_id', referenceId)
-        .single();
-      
-      if (error) throw error;
-      return data;
-    },
+    queryFn: () => fetchOrder({ data: { referenceId } }),
     enabled: !!referenceId,
     refetchInterval: (query) => {
       const status = query.state.data?.status;
