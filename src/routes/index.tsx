@@ -102,14 +102,23 @@ function Index() {
         </div>
         <div>
           <h2 className="font-['Archivo_Black'] text-3xl md:text-4xl mb-8 md:12 text-primary">MAPA DO EVENTO</h2>
-          <div className="aspect-[4/3] md:aspect-square bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden relative">
+          <div className="aspect-[4/3] md:aspect-square bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden relative flex flex-col">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.637370356133!2d-41.2828695!3d-13.0645624!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7439396e94966e75%3A0x2a9a5f7cc659349!2sClube%20do%20Raul!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr"
-              className="absolute inset-0 w-full h-full border-0 grayscale invert brightness-90 contrast-125"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3882.2642676059635!2d-45.731931424161984!3d-12.074630142831518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935c3915124b89f5%3A0xea3d82a4d3b66472!2sClube%20do%20Raul!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr"
+              className="w-full flex-grow border-0 grayscale invert brightness-90 contrast-125"
               allowFullScreen={true}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
+            <div className="p-4 bg-background/50 backdrop-blur-sm border-t border-white/10 flex justify-center">
+              <button 
+                onClick={() => window.open('https://www.google.com/maps/dir/?api=1&destination=-12.0746355,-45.7293565', '_blank')}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-xl font-bold text-sm transition-all hover:scale-105 flex items-center gap-2"
+              >
+                <i className="fa-solid fa-location-dot"></i>
+                Como chegar
+              </button>
+            </div>
           </div>
         </div>
       </section>
