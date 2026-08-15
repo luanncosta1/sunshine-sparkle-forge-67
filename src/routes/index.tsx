@@ -112,8 +112,14 @@ function Index() {
               );
             }}
           >
-            <div className="size-16 rounded-full bg-primary/20 flex items-center justify-center border border-primary/50 text-primary transition-transform group-hover:scale-110">
-              <i className="fa-solid fa-location-dot text-3xl"></i>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="size-16 rounded-full bg-primary/20 flex items-center justify-center border border-primary/50 text-primary transition-transform group-hover:scale-110">
+                <i className="fa-solid fa-location-dot text-3xl"></i>
+              </div>
+            </div>
+            <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2">
+              <span className="text-xs font-bold text-white">Abrir no Maps</span>
+              <i className="fa-solid fa-arrow-up-right-from-square text-[10px] text-white"></i>
             </div>
           </div>
         </div>
