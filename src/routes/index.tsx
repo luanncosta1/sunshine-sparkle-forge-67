@@ -1,15 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import rushHero from "@/assets/rush_hero.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    title: "Vibe Festival 2024 | A Noite da Sua Vida",
+    title: "RUSH Night | Nova Group Presents",
     meta: [
-      { name: "description", content: "Garanta seu ingresso para o Vibe Festival 2024. A maior noite da sua vida com as melhores atrações." },
-      { property: "og:title", content: "Vibe Festival 2024 | A Noite da Sua Vida" },
-      { property: "og:description", content: "Garanta seu ingresso para o Vibe Festival 2024. A maior noite da sua vida com as melhores atrações." },
-      { property: "og:image", content: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=2000" },
+      { name: "description", content: "Nova Group presents RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { property: "og:title", content: "RUSH Night | Nova Group Presents" },
+      { property: "og:description", content: "Nova Group presents RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { property: "og:image", content: rushHero.url },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=2000" },
+      { name: "twitter:image", content: rushHero.url },
     ],
   }),
   component: Index,
@@ -27,23 +28,41 @@ function Index() {
             </a>
           ))}
         </div>
-        <div className="flex md:hidden text-primary font-bold">VIBE 2024</div>
+        <div className="flex md:hidden text-primary font-bold">RUSH 2024</div>
         <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 md:px-6 py-2 rounded-full font-bold text-xs md:text-sm whitespace-nowrap">
           Comprar Ingressos
         </button>
       </nav>
 
       {/* Hero */}
-      <header className="relative min-h-[60vh] md:h-[80vh] flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-0">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=2000')] bg-cover bg-center brightness-[0.3]" />
-        <h1 className="relative font-['Archivo_Black'] text-4xl sm:text-6xl md:text-8xl text-primary mb-6 md:mb-8 tracking-tighter leading-tight">
-          VIBE FESTIVAL 2024:
-          <br />
-          A NOITE DA SUA VIDA
-        </h1>
-        <button className="relative bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-transform hover:scale-105">
-          COMPRAR INGRESSOS AGORA
-        </button>
+      <header className="relative min-h-[80vh] md:min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-0 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center brightness-[0.6]" 
+          style={{ backgroundImage: `url(${rushHero.url})` }}
+        />
+        {/* Overlay gradient for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
+        
+        <div className="relative z-10 space-y-4">
+          <p className="text-primary font-bold tracking-[0.3em] text-sm md:text-base animate-in fade-in slide-in-from-top-4 duration-1000">
+            NOVA GROUP PRESENTS
+          </p>
+          <h1 className="font-['Archivo_Black'] text-6xl sm:text-8xl md:text-[10rem] text-primary mb-2 md:mb-4 tracking-tighter leading-[0.8] animate-in zoom-in-95 duration-1000">
+            RUSH
+            <br />
+            <span className="text-foreground italic font-sans text-4xl sm:text-6xl md:text-8xl tracking-normal block -mt-4 md:-mt-8">Night</span>
+          </h1>
+          <div className="flex flex-wrap justify-center gap-4 text-xs md:text-sm font-bold tracking-widest text-foreground/80 mb-8">
+            <span className="border border-foreground/20 px-3 py-1">TECH HOUSE</span>
+            <span className="text-primary">+</span>
+            <span className="border border-foreground/20 px-3 py-1">HOUSE</span>
+            <span className="text-primary">+</span>
+            <span className="border border-foreground/20 px-3 py-1">AFRO HOUSE</span>
+          </div>
+          <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,69,0,0.5)]">
+            COMPRAR INGRESSOS AGORA
+          </button>
+        </div>
       </header>
 
       {/* Tickets */}
@@ -71,10 +90,9 @@ function Index() {
           <h2 className="font-['Archivo_Black'] text-3xl md:text-4xl mb-8 md:12 text-primary">PROGRAMAÇÃO</h2>
           <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-primary/30">
             {[
-              { time: "20:00 - 21:00", artist: "PISTA" },
-              { time: "21:00 - 22:30", artist: "DJ RENATO" },
-              { time: "22:30 - 00:00", artist: "VIBE BAND" },
-              { time: "00:00 - 02:00", artist: "HEADLINER" },
+              { time: "23:00 - 01:00", artist: "DJ NOVA" },
+              { time: "01:00 - 03:00", artist: "DJ KAIRO" },
+              { time: "03:00 - 05:00", artist: "DJ VYBE" },
             ].map((item) => (
               <div key={item.artist} className="pl-8 relative">
                 <div className="absolute left-0 top-2 size-4 rounded-full bg-primary" />
@@ -119,7 +137,7 @@ function Index() {
             <input type="email" placeholder="Enter email" className="w-full bg-muted border border-border p-3 rounded-lg" />
           </div>
         </div>
-        <div className="text-center mt-12 text-muted-foreground">© 2024 Vibe Festival. Privacy Policy</div>
+        <div className="text-center mt-12 text-muted-foreground">© 2024 RUSH Night. Privacy Policy</div>
       </footer>
     </div>
   );
