@@ -102,25 +102,14 @@ function Index() {
         </div>
         <div>
           <h2 className="font-['Archivo_Black'] text-3xl md:text-4xl mb-8 md:12 text-primary">MAPA DO EVENTO</h2>
-          <div 
-            className="aspect-[4/3] md:aspect-square bg-[#333333] border border-white/10 rounded-2xl overflow-hidden relative cursor-pointer group flex items-center justify-center"
-            onClick={() => {
-              window.open(
-                "https://www.google.com/maps/search/?api=1&query=-12.0746355%2C-45.7293565",
-                "_blank",
-                "noopener,noreferrer"
-              );
-            }}
-          >
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="size-16 rounded-full bg-primary/20 flex items-center justify-center border border-primary/50 text-primary transition-transform group-hover:scale-110">
-                <i className="fa-solid fa-location-dot text-3xl"></i>
-              </div>
-            </div>
-            <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 flex items-center gap-2">
-              <span className="text-xs font-bold text-white">Abrir no Maps</span>
-              <i className="fa-solid fa-arrow-up-right-from-square text-[10px] text-white"></i>
-            </div>
+          <div className="aspect-[4/3] md:aspect-square bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden relative">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.6263593021746!2d-41.2828695!3d-13.680652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7439396e94966e75%3A0x2a9a5f7cc659349!2sClube%20do%20Raul!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr"
+              className="absolute inset-0 w-full h-full border-0 grayscale invert brightness-90 contrast-125"
+              allowFullScreen={true}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
       </section>
