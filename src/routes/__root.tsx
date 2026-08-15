@@ -89,6 +89,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "apple-mobile-web-app-title", content: "CLUBE DO RAUL" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      { "http-equiv": "Cache-Control", content: "no-cache, no-store, must-revalidate" },
+      { "http-equiv": "Pragma", content: "no-cache" },
+      { "http-equiv": "Expires", content: "0" },
     ],
     links: [
       {
