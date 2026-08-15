@@ -43,12 +43,12 @@ function Index() {
         
         <div className="relative z-10 space-y-4">
           <div className="h-20" /> {/* Spacer instead of the removed text */}
-          <div className="flex flex-wrap justify-center gap-4 text-xs md:text-sm font-bold tracking-widest text-foreground/80 mb-8">
-            <span className="border border-foreground/20 px-3 py-1">NOVO HIT</span>
-            <span className="text-primary">+</span>
-            <span className="border border-foreground/20 px-3 py-1">THIAGO PARAGUASSU</span>
-            <span className="text-primary">+</span>
-            <span className="border border-foreground/20 px-3 py-1">DANEIL BONNER</span>
+          <div className="flex flex-wrap justify-center gap-6 text-2xl md:text-3xl font-bold tracking-tighter text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-['Anton'] italic uppercase">
+            <span>NOVO HIT</span>
+            <span className="text-primary not-italic">★</span>
+            <span>THIAGO PARAGUASSU</span>
+            <span className="text-primary not-italic">★</span>
+            <span>DANEIL BONNER</span>
           </div>
           <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,69,0,0.5)]">
             COMPRAR INGRESSOS AGORA
