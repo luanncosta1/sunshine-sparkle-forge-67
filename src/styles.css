@@ -67,7 +67,7 @@
   --foreground: oklch(0.98 0 0);
   --primary: oklch(0.85 0.2 90);
   --primary-foreground: oklch(0.98 0 0);
-  --card: oklch(0.15 0 0);
+  --card: oklch(1 0 0 / 5%);
   --card-foreground: oklch(0.98 0 0);
   --border: oklch(0.25 0 0);
   --muted: oklch(0.2 0 0);
