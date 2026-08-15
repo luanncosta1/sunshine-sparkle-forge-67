@@ -49,7 +49,10 @@ function Index() {
       {/* Tickets */}
       <section className="py-16 md:py-24 px-4 md:px-8 max-w-6xl mx-auto -mt-20 relative z-20">
         <div className="flex justify-center mb-8">
-          <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 rounded-full font-bold text-base transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,69,0,0.4)]">
+          <button 
+            onClick={() => window.open('https://wa.me/+5577998498472?text=Olá! Vim pelo site, quero mais informações sobre os ingressos.', '_blank')}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 rounded-full font-bold text-base transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,69,0,0.4)]"
+          >
             COMPRAR INGRESSOS AGORA
           </button>
         </div>
@@ -63,7 +66,10 @@ function Index() {
             <div key={ticket.name} className="bg-card border border-border p-8 rounded-2xl text-center">
               <h3 className="text-2xl font-bold mb-4">{ticket.name}</h3>
               <p className="text-3xl font-bold mb-8 text-primary">{ticket.price}</p>
-              <button className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors">
+              <button 
+                onClick={() => window.open(`https://wa.me/+5577998498472?text=Olá! Gostaria de comprar o ingresso para o setor ${ticket.name}.`, '_blank')}
+                className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors"
+              >
                 Comprar Ingressos
               </button>
             </div>
