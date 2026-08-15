@@ -55,12 +55,29 @@ function Index() {
       </section>
 
       {/* Footer / Meta */}
-      <footer className="border-t border-border py-12 px-8 text-muted-foreground text-sm">
+      <footer className="border-t border-border py-12 px-8 text-sm">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
-          <div>SOCIAL LINKS</div>
-          <div>TERMOS</div>
-          <div>NEWSLETTER</div>
+          <div className="space-y-4">
+            <h4 className="font-bold">SOCIAL</h4>
+            <div className="flex gap-4">
+               {["Facebook", "Twitter", "Instagram", "YouTube"].map(s => <span key={s} className="size-8 rounded-full bg-muted flex items-center justify-center text-xs">{s[0]}</span>)}
+            </div>
+          </div>
+          <div className="space-y-4">
+            <h4 className="font-bold">TERMOS</h4>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>Início</li>
+              <li>Mapa de Evento</li>
+              <li>Contato</li>
+            </ul>
+          </div>
+          <div className="space-y-4">
+            <h4 className="font-bold">NEWSLETTER</h4>
+            <p className="text-muted-foreground">Sign up for updates via newsletter</p>
+            <input type="email" placeholder="Enter email" className="w-full bg-muted border border-border p-3 rounded-lg" />
+          </div>
         </div>
+        <div className="text-center mt-12 text-muted-foreground">© 2024 Vibe Festival. Privacy Policy</div>
       </footer>
     </div>
   );
