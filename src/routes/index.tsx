@@ -50,14 +50,16 @@ function Index() {
             <span className="text-primary not-italic">★</span>
             <span>DANEIL BONNER</span>
           </div>
-          <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,69,0,0.5)]">
-            COMPRAR INGRESSOS AGORA
-          </button>
         </div>
       </header>
 
       {/* Tickets */}
       <section className="py-16 md:py-24 px-4 md:px-8 max-w-6xl mx-auto">
+        <div className="flex justify-center mb-12">
+          <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 rounded-full font-bold text-base transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,69,0,0.4)]">
+            COMPRAR INGRESSOS AGORA
+          </button>
+        </div>
         <h2 className="text-center font-['Archivo_Black'] text-3xl md:text-4xl mb-12 md:16 text-primary">TIPOS DE INGRESSOS</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           {[
