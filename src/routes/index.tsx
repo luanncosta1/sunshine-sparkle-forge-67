@@ -34,14 +34,14 @@ function Index() {
       </nav>
 
       {/* Hero */}
-      <header className="relative h-[80vh] flex flex-col items-center justify-center text-center px-4">
+      <header className="relative min-h-[60vh] md:h-[80vh] flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-0">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=2000')] bg-cover bg-center brightness-[0.3]" />
-        <h1 className="relative font-['Archivo_Black'] text-6xl md:text-8xl text-primary mb-8 tracking-tighter">
+        <h1 className="relative font-['Archivo_Black'] text-4xl sm:text-6xl md:text-8xl text-primary mb-6 md:mb-8 tracking-tighter leading-tight">
           VIBE FESTIVAL 2024:
           <br />
           A NOITE DA SUA VIDA
         </h1>
-        <button className="relative bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-4 rounded-full font-bold text-xl transition-transform hover:scale-105">
+        <button className="relative bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-transform hover:scale-105">
           COMPRAR INGRESSOS AGORA
         </button>
       </header>
