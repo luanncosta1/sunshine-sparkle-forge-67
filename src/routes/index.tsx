@@ -43,12 +43,18 @@ function Index() {
         
         <div className="relative z-10 space-y-4">
           <div className="h-20" /> {/* Spacer instead of the removed text */}
-          <div className="flex flex-wrap justify-center gap-6 text-2xl md:text-3xl font-bold tracking-tighter text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-['Anton'] italic uppercase">
-            <span>NOVO HIT</span>
-            <span className="text-primary not-italic">★</span>
-            <span>THIAGO PARAGUASSU</span>
-            <span className="text-primary not-italic">★</span>
-            <span>DANEIL BONNER</span>
+          <div className="flex flex-wrap items-center justify-center gap-6 text-2xl md:text-4xl font-bold tracking-tighter text-white drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)] font-['Anton'] italic uppercase leading-[0.9]">
+            <span className="whitespace-nowrap">NOVO HIT</span>
+            <span className="text-primary not-italic text-3xl md:text-5xl drop-shadow-[0_0_10px_rgba(255,69,0,0.5)]">★</span>
+            <div className="flex flex-col items-center">
+              <span>THIAGO</span>
+              <span>PARAGUASSU</span>
+            </div>
+            <span className="text-primary not-italic text-3xl md:text-5xl drop-shadow-[0_0_10px_rgba(255,69,0,0.5)]">★</span>
+            <div className="flex flex-col items-center">
+              <span>DANEIL</span>
+              <span>BONNER</span>
+            </div>
           </div>
           <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,69,0,0.5)]">
             COMPRAR INGRESSOS AGORA
