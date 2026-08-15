@@ -85,8 +85,8 @@ function Index() {
           </div>
         </div>
         <div>
-          <h2 className="font-['Archivo_Black'] text-4xl mb-12 text-primary">MAPA DO EVENTO</h2>
-          <div className="aspect-square bg-card border border-border rounded-2xl overflow-hidden relative">
+          <h2 className="font-['Archivo_Black'] text-3xl md:text-4xl mb-8 md:12 text-primary">MAPA DO EVENTO</h2>
+          <div className="aspect-[4/3] md:aspect-square bg-card border border-border rounded-2xl overflow-hidden relative">
             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=1000')] bg-cover opacity-20 grayscale" />
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="size-8 bg-primary rounded-full animate-ping opacity-75" />
