@@ -21,7 +21,7 @@ function Index() {
     <div className="min-h-screen bg-background text-foreground font-sans">
       {/* Navbar */}
       <nav className="fixed w-full z-50 flex items-center justify-center px-4 md:px-8 py-4 md:py-6 bg-background/80 backdrop-blur-md">
-        <div className="text-primary font-bold text-xl tracking-[0.2em] font-['Archivo_Black'] uppercase">CLUBE DO RAUL</div>
+        <div className="text-primary font-bold text-lg md:text-xl tracking-[0.2em] font-['Archivo_Black'] uppercase">CLUBE DO RAUL</div>
       </nav>
 
       {/* Hero */}
