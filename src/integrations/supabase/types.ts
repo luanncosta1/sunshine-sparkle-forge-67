@@ -17,8 +17,14 @@ export type Database = {
       orders: {
         Row: {
           created_at: string | null
+          customer_email: string | null
+          customer_name: string | null
+          customer_phone: string | null
+          event_id: string | null
           id: string
           pagbank_checkout_id: string | null
+          pagbank_transaction_id: string | null
+          payment_method: string | null
           quantity: number
           reference_id: string
           status: string
@@ -29,8 +35,14 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          event_id?: string | null
           id?: string
           pagbank_checkout_id?: string | null
+          pagbank_transaction_id?: string | null
+          payment_method?: string | null
           quantity?: number
           reference_id: string
           status?: string
@@ -41,8 +53,14 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          customer_email?: string | null
+          customer_name?: string | null
+          customer_phone?: string | null
+          event_id?: string | null
           id?: string
           pagbank_checkout_id?: string | null
+          pagbank_transaction_id?: string | null
+          payment_method?: string | null
           quantity?: number
           reference_id?: string
           status?: string
@@ -52,6 +70,44 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: []
+      }
+      tickets: {
+        Row: {
+          created_at: string | null
+          id: string
+          order_id: string
+          qr_code_data: string
+          status: string
+          ticket_code: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          order_id: string
+          qr_code_data: string
+          status?: string
+          ticket_code: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          order_id?: string
+          qr_code_data?: string
+          status?: string
+          ticket_code?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tickets_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
