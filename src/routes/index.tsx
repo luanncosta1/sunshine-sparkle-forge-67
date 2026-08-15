@@ -41,22 +41,25 @@ function Index() {
         {/* Overlay gradient for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
         
-        <div className="relative z-10 space-y-4">
-          <div className="h-20" /> {/* Spacer instead of the removed text */}
-          <div className="absolute inset-0 z-10 pointer-events-none hidden md:block">
-            {/* NOVO HIT - Left person shirt */}
-            <div className="absolute left-[15%] top-[65%] border border-foreground/20 px-3 py-1 text-xs font-bold tracking-widest bg-background/40 backdrop-blur-sm">
-              NOVO HIT
-            </div>
-            {/* DANEIL BONNER - Middle person shirt */}
-            <div className="absolute left-[45%] top-[78%] border border-foreground/20 px-3 py-1 text-xs font-bold tracking-widest bg-background/40 backdrop-blur-sm">
-              DANEIL BONNER
-            </div>
-            {/* THIAGO PARAGUASSU - Right person shoulder */}
-            <div className="absolute right-[10%] top-[45%] border border-foreground/20 px-3 py-1 text-xs font-bold tracking-widest bg-background/40 backdrop-blur-sm">
-              THIAGO PARAGUASSU
-            </div>
+        {/* Floating Artist Tags - Positioning relative to the header background */}
+        <div className="absolute inset-0 z-10 pointer-events-none hidden md:block">
+          {/* NOVO HIT - Left person shirt area */}
+          <div className="absolute left-[18%] top-[70%] border border-foreground/20 px-3 py-1 text-xs font-bold tracking-widest bg-background/40 backdrop-blur-sm text-foreground">
+            NOVO HIT
           </div>
+          {/* DANEIL BONNER - Middle person shirt area */}
+          <div className="absolute left-[47%] top-[82%] border border-foreground/20 px-3 py-1 text-xs font-bold tracking-widest bg-background/40 backdrop-blur-sm text-foreground">
+            DANEIL BONNER
+          </div>
+          {/* THIAGO PARAGUASSU - Right person shoulder area */}
+          <div className="absolute right-[12%] top-[48%] border border-foreground/20 px-3 py-1 text-xs font-bold tracking-widest bg-background/40 backdrop-blur-sm text-foreground">
+            THIAGO PARAGUASSU
+          </div>
+        </div>
+
+        <div className="relative z-20 space-y-4">
+          <div className="h-20 md:h-32" /> {/* Spacer */}
+          
           {/* Mobile view tags fallback */}
           <div className="flex flex-wrap justify-center gap-4 text-xs font-bold tracking-widest text-foreground/80 mb-8 md:hidden">
             <span className="border border-foreground/20 px-3 py-1">NOVO HIT</span>
