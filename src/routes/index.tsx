@@ -42,11 +42,7 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
         
         <div className="relative z-10 space-y-4">
-          <h1 className="font-['Archivo_Black'] text-6xl sm:text-8xl md:text-[10rem] text-primary mb-2 md:mb-4 tracking-tighter leading-[0.8] animate-in zoom-in-95 duration-1000 uppercase">
-            Esquenta
-            <br />
-            <span className="text-foreground italic font-sans text-4xl sm:text-6xl md:text-8xl tracking-normal block -mt-4 md:-mt-8">Carnaval 2026</span>
-          </h1>
+          <div className="h-20" /> {/* Spacer instead of the removed text */}
           <div className="flex flex-wrap justify-center gap-4 text-xs md:text-sm font-bold tracking-widest text-foreground/80 mb-8">
             <span className="border border-foreground/20 px-3 py-1">NOVO HIT</span>
             <span className="text-primary">+</span>
