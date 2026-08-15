@@ -42,9 +42,6 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
         
         <div className="relative z-10 space-y-4">
-          <p className="text-primary font-bold tracking-[0.3em] text-sm md:text-base animate-in fade-in slide-in-from-top-4 duration-1000 uppercase">
-            CLUBE DO RAUL PRESENTS
-          </p>
           <h1 className="font-['Archivo_Black'] text-6xl sm:text-8xl md:text-[10rem] text-primary mb-2 md:mb-4 tracking-tighter leading-[0.8] animate-in zoom-in-95 duration-1000 uppercase">
             Esquenta
             <br />
