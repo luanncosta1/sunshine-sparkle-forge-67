@@ -1,8 +1,8 @@
 
 export const TICKET_PRICES: Record<string, number> = {
-  "PISTA": 12000, // 120.00 in cents
-  "VIP": 25000,   // 250.00 in cents
-  "CAMAROTE": 40000 // 400.00 in cents
+  "PISTA": 100, // 1.00 in cents
+  "VIP": 100,   // 1.00 in cents
+  "CAMAROTE": 100 // 1.00 in cents
 };
 
 export interface PagBankCheckoutItem {
