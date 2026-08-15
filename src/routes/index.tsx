@@ -35,8 +35,8 @@ function Index() {
       {/* Hero */}
       <header className="relative min-h-[80vh] md:min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-0 overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-center brightness-[0.6]" 
-          style={{ backgroundImage: `url(${rushHero.url})` }}
+          className="absolute inset-0 bg-cover bg-center brightness-[0.8]" 
+          style={{ backgroundImage: `url(${esquentaHero.url})` }}
         />
         {/* Overlay gradient for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
