@@ -3,7 +3,9 @@ import logoAsset from "@/assets/club_do_raul_logo.png.asset.json";
 import esquentaHero from "@/assets/esquenta_clube_do_raul.png.asset.json";
 import bgAsset from "@/assets/BG.png.asset.json";
 import mapPinAsset from "@/assets/map_pin.png.asset.json";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createCheckout } from "@/lib/payments.functions";
+import { toast } from "sonner";
 
 
 export const Route = createFileRoute("/")({
@@ -22,6 +24,8 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [loadingTicket, setLoadingTicket] = useState<string | null>(null);
+
   useEffect(() => {
     // Force a check for new content when the user returns to the page
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
@@ -30,6 +34,31 @@ function Index() {
       });
     }
   }, []);
+
+  const handlePurchase = async (ticketType: string) => {
+    setLoadingTicket(ticketType);
+    try {
+      const response = await createCheckout({
+        data: {
+          ticketType,
+          quantity: 1
+        }
+      });
+      
+      const checkoutUrl = response.checkoutUrl;
+      
+      if (checkoutUrl) {
+        window.location.href = checkoutUrl;
+      } else {
+        throw new Error("Checkout URL not found");
+      }
+    } catch (error) {
+      console.error("Purchase error:", error);
+      toast.error("Erro ao iniciar a compra. Tente novamente ou use o WhatsApp.");
+    } finally {
+      setLoadingTicket(null);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
@@ -68,10 +97,11 @@ function Index() {
 
         <div className="flex justify-center mb-8">
           <button 
-            onClick={() => window.open('https://wa.me/+5577998498472?text=Olá! Vim pelo site, quero mais informações sobre os ingressos.', '_blank')}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 rounded-full font-bold text-base transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,69,0,0.4)]"
+            onClick={() => handlePurchase("PISTA")}
+            disabled={loadingTicket !== null}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 rounded-full font-bold text-base transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(255,69,0,0.4)] disabled:opacity-50 disabled:cursor-wait"
           >
-            COMPRAR INGRESSOS AGORA
+            {loadingTicket === "PISTA" ? "CARREGANDO..." : "COMPRAR INGRESSOS AGORA"}
           </button>
         </div>
         <h2 className="text-center font-['Archivo_Black'] text-3xl md:text-4xl mb-12 md:16 text-primary">TIPOS DE INGRESSOS</h2>
@@ -85,10 +115,11 @@ function Index() {
               <h3 className="text-2xl font-bold mb-4">{ticket.name}</h3>
               <p className="text-3xl font-bold mb-8 text-primary">{ticket.price}</p>
               <button 
-                onClick={() => window.open(`https://wa.me/+5577998498472?text=Olá! Gostaria de comprar o ingresso para o setor ${ticket.name}.`, '_blank')}
-                className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors"
+                onClick={() => handlePurchase(ticket.name)}
+                disabled={loadingTicket !== null}
+                className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-wait"
               >
-                Comprar Ingressos
+                {loadingTicket === ticket.name ? "Carregando..." : "Comprar Ingressos"}
               </button>
             </div>
           ))}

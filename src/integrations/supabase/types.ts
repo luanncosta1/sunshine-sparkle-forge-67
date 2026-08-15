@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      orders: {
+        Row: {
+          created_at: string | null
+          id: string
+          pagbank_checkout_id: string | null
+          quantity: number
+          reference_id: string
+          status: string
+          ticket_type: string
+          total_price: number
+          unit_price: number
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          pagbank_checkout_id?: string | null
+          quantity?: number
+          reference_id: string
+          status?: string
+          ticket_type: string
+          total_price: number
+          unit_price: number
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          pagbank_checkout_id?: string | null
+          quantity?: number
+          reference_id?: string
+          status?: string
+          ticket_type?: string
+          total_price?: number
+          unit_price?: number
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
