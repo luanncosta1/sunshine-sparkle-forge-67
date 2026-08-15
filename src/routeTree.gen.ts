@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OrderResultRouteImport } from './routes/order-result'
+import { Route as ApiPublicPagbankWebhookRouteImport } from './routes/api/public/pagbank-webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrderResultRoute = OrderResultRouteImport.update({
+  id: '/order-result',
+  path: '/order-result',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicPagbankWebhookRoute = ApiPublicPagbankWebhookRouteImport.update({
+  id: '/api/public/pagbank-webhook',
+  path: '/api/public/pagbank-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/order-result': typeof OrderResultRoute
+  '/api/public/pagbank-webhook': typeof ApiPublicPagbankWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/order-result': typeof OrderResultRoute
+  '/api/public/pagbank-webhook': typeof ApiPublicPagbankWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/order-result': typeof OrderResultRoute
+  '/api/public/pagbank-webhook': typeof ApiPublicPagbankWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/order-result' | '/api/public/pagbank-webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/order-result' | '/api/public/pagbank-webhook'
+  id: '__root__' | '/' | '/order-result' | '/api/public/pagbank-webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OrderResultRoute: typeof OrderResultRoute
+  ApiPublicPagbankWebhookRoute: typeof ApiPublicPagbankWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/order-result': {
+      id: '/order-result'
+      path: '/order-result'
+      fullPath: '/order-result'
+      preLoaderRoute: typeof OrderResultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/pagbank-webhook': {
+      id: '/api/public/pagbank-webhook'
+      path: '/api/public/pagbank-webhook'
+      fullPath: '/api/public/pagbank-webhook'
+      preLoaderRoute: typeof ApiPublicPagbankWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OrderResultRoute: OrderResultRoute,
+  ApiPublicPagbankWebhookRoute: ApiPublicPagbankWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

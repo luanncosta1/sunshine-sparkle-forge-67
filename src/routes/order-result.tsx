@@ -9,9 +9,7 @@ export const Route = createFileRoute("/order-result")({
 });
 
 function OrderResult() {
-  const { referenceId } = Route.useSearch({
-    from: "/order-result",
-  }) as { referenceId: string };
+  const { referenceId } = Route.useSearch() as { referenceId: string };
 
   const { data: order, isLoading, error } = useQuery({
     queryKey: ['order', referenceId],
@@ -90,7 +88,7 @@ function OrderResult() {
     }
   };
 
-  const currentStatus = statusInfo[order.status] || statusInfo.pending;
+  const currentStatus = statusInfo[order.status] || statusInfo['pending'];
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 font-sans text-foreground">
