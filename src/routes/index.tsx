@@ -21,11 +21,11 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       {/* Navbar */}
-      <nav className="fixed w-full z-50 flex items-center justify-between px-4 md:px-8 py-4 md:py-6 bg-background/80 backdrop-blur-md">
+      <nav className="fixed w-full z-50 flex items-center justify-between px-4 md:px-8 py-2 md:py-3 bg-background/80 backdrop-blur-md border-b border-white/10">
         <div className="flex-1 flex justify-start">
-          <img src={logoAsset.url} alt="Logo Clube do Raul" className="h-10 md:h-12 w-auto object-contain" />
+          <img src={logoAsset.url} alt="Logo Clube do Raul" className="h-8 md:h-10 w-auto object-contain" />
         </div>
-        <div className="text-primary font-bold text-lg md:text-xl tracking-[0.2em] font-['Archivo_Black'] uppercase absolute left-1/2 -translate-x-1/2">
+        <div className="text-primary font-bold text-base md:text-lg tracking-[0.2em] font-['Archivo_Black'] uppercase absolute left-1/2 -translate-x-1/2 whitespace-nowrap">
           CLUBE DO RAUL
         </div>
         <div className="flex-1" />
