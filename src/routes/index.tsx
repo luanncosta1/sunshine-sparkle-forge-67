@@ -41,14 +41,32 @@ function Index() {
         {/* Overlay gradient for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
         
-        <div className="relative z-10 space-y-4">
-          <div className="h-20" /> {/* Spacer instead of the removed text */}
-          <div className="flex flex-wrap justify-center gap-4 text-xs md:text-sm font-bold tracking-widest text-foreground/80 mb-8">
+        {/* Floating Artist Tags - Positioning relative to the header background */}
+        <div className="absolute inset-0 z-10 pointer-events-none hidden md:block">
+          {/* NOVO HIT - Left person shirt area */}
+          <div className="absolute left-[18%] top-[70%] border border-foreground/20 px-3 py-1 text-xs font-bold tracking-widest bg-background/40 backdrop-blur-sm text-foreground">
+            NOVO HIT
+          </div>
+          {/* DANEIL BONNER - Middle person shirt area */}
+          <div className="absolute left-[47%] top-[82%] border border-foreground/20 px-3 py-1 text-xs font-bold tracking-widest bg-background/40 backdrop-blur-sm text-foreground">
+            DANEIL BONNER
+          </div>
+          {/* THIAGO PARAGUASSU - Right person shoulder area */}
+          <div className="absolute right-[12%] top-[48%] border border-foreground/20 px-3 py-1 text-xs font-bold tracking-widest bg-background/40 backdrop-blur-sm text-foreground">
+            THIAGO PARAGUASSU
+          </div>
+        </div>
+
+        <div className="relative z-20 space-y-4">
+          <div className="h-20 md:h-32" /> {/* Spacer */}
+          
+          {/* Mobile view tags fallback */}
+          <div className="flex flex-wrap justify-center gap-4 text-xs font-bold tracking-widest text-foreground/80 mb-8 md:hidden">
             <span className="border border-foreground/20 px-3 py-1">NOVO HIT</span>
             <span className="text-primary">+</span>
-            <span className="border border-foreground/20 px-3 py-1">THIAGO PARAGUASSU</span>
-            <span className="text-primary">+</span>
             <span className="border border-foreground/20 px-3 py-1">DANEIL BONNER</span>
+            <span className="text-primary">+</span>
+            <span className="border border-foreground/20 px-3 py-1">THIAGO PARAGUASSU</span>
           </div>
           <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,69,0,0.5)]">
             COMPRAR INGRESSOS AGORA
