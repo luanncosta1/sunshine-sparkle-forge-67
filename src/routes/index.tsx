@@ -23,7 +23,7 @@ function Index() {
       {/* Navbar */}
       <nav className="fixed w-full z-50 flex items-center px-4 md:px-8 py-2 md:py-3 bg-background/80 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <img src={logoAsset.url} alt="Logo" className="h-10 md:h-12 w-auto object-contain" />
+          <img src={logoAsset.url} alt="Logo" className="h-10 md:h-12 w-auto object-contain mix-blend-screen" />
           <div className="text-primary font-bold text-base md:text-lg tracking-[0.2em] font-['Archivo_Black'] uppercase leading-none">
             CLUBE DO RAUL
           </div>
