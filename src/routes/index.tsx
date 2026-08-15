@@ -3,14 +3,14 @@ import rushHero from "@/assets/rush_hero.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    title: "Vibe Festival 2024 | A Noite da Sua Vida",
+    title: "RUSH Night | Nova Group Presents",
     meta: [
-      { name: "description", content: "Garanta seu ingresso para o Vibe Festival 2024. A maior noite da sua vida com as melhores atrações." },
-      { property: "og:title", content: "Vibe Festival 2024 | A Noite da Sua Vida" },
-      { property: "og:description", content: "Garanta seu ingresso para o Vibe Festival 2024. A maior noite da sua vida com as melhores atrações." },
-      { property: "og:image", content: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=2000" },
+      { name: "description", content: "Nova Group presents RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { property: "og:title", content: "RUSH Night | Nova Group Presents" },
+      { property: "og:description", content: "Nova Group presents RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { property: "og:image", content: rushHero.url },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=2000" },
+      { name: "twitter:image", content: rushHero.url },
     ],
   }),
   component: Index,
