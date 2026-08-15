@@ -5,14 +5,14 @@ import esquentaHero from "@/assets/esquenta_clube_do_raul.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    title: "CLUBE DO RAUL | RUSH Night",
+    title: "CLUBE DO RAUL | Esquenta Carnaval 2026",
     meta: [
-      { name: "description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
-      { property: "og:title", content: "CLUBE DO RAUL | RUSH Night" },
-      { property: "og:description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
-      { property: "og:image", content: rushHero.url },
+      { name: "description", content: "Clube do Raul apresenta Esquenta Carnaval 2026. Novo Hit + Thiago Paraguassu + Daneil Bonner. Garanta seu ingresso agora." },
+      { property: "og:title", content: "CLUBE DO RAUL | Esquenta Carnaval 2026" },
+      { property: "og:description", content: "Clube do Raul apresenta Esquenta Carnaval 2026. Novo Hit + Thiago Paraguassu + Daneil Bonner. Garanta seu ingresso agora." },
+      { property: "og:image", content: esquentaHero.url },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: rushHero.url },
+      { name: "twitter:image", content: esquentaHero.url },
     ],
   }),
   component: Index,
