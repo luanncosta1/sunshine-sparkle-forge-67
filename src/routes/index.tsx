@@ -42,14 +42,7 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
         
         <div className="relative z-10 space-y-4">
-          <div className="h-20" /> {/* Spacer instead of the removed text */}
-          <div className="flex flex-wrap justify-center gap-6 text-2xl md:text-3xl font-bold tracking-tighter text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] font-['Anton'] italic uppercase">
-            <span>NOVO HIT</span>
-            <span className="text-primary not-italic">★</span>
-            <span>THIAGO PARAGUASSU</span>
-            <span className="text-primary not-italic">★</span>
-            <span>DANEIL BONNER</span>
-          </div>
+          <div className="h-20" /> {/* Spacer */}
         </div>
       </header>
 
