@@ -77,7 +77,18 @@ export const getOrderByReference = createServerFn({ method: "POST" })
 
     const { data: order, error } = await supabaseAdmin
       .from('orders')
-      .select('reference_id, ticket_type, quantity, total_price, status')
+      .select(`
+        reference_id, 
+        ticket_type, 
+        quantity, 
+        total_price, 
+        status,
+        customer_name,
+        tickets (
+          ticket_code,
+          qr_code_data
+        )
+      `)
       .eq('reference_id', data.referenceId)
       .maybeSingle();
 

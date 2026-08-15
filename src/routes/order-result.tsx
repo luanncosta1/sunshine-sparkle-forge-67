@@ -123,7 +123,20 @@ function OrderResult() {
             <span className="text-muted-foreground">Valor Total:</span>
             <span className="text-xl font-bold text-primary">R$ {(order.total_price / 100).toFixed(2).replace('.', ',')}</span>
           </div>
-        </div>
+        {order.status === 'paid' && order.tickets?.[0] && (
+          <div className="bg-primary/10 border border-primary/20 rounded-xl p-6 mb-8 text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
+            <h3 className="font-bold text-primary mb-2 uppercase">Seu ingresso foi gerado!</h3>
+            <p className="text-sm text-muted-foreground mb-4">Código: <span className="font-mono font-bold text-foreground">{order.tickets[0].ticket_code}</span></p>
+            <div className="bg-white p-2 rounded-lg inline-block mb-2">
+              <div className="size-32 bg-gray-200 flex items-center justify-center text-gray-500 text-xs text-center p-2">
+                QR CODE<br/>{order.tickets[0].ticket_code}
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">Em breve você receberá as instruções por WhatsApp e E-mail.</p>
+          </div>
+        )}
+      </div>
+
 
         <Link to="/" className="w-full inline-block bg-primary hover:bg-primary/90 text-primary-foreground py-4 rounded-xl font-bold transition-all transform hover:scale-105">
           Voltar ao Início
