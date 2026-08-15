@@ -1,17 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import rushHero from "@/assets/rush_hero.jpg.asset.json";
 import logoAsset from "@/assets/club_do_raul_logo.png.asset.json";
+import esquentaHero from "@/assets/esquenta_clube_do_raul.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    title: "CLUBE DO RAUL | RUSH Night",
+    title: "CLUBE DO RAUL | Esquenta Carnaval 2026",
     meta: [
-      { name: "description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
-      { property: "og:title", content: "CLUBE DO RAUL | RUSH Night" },
-      { property: "og:description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
-      { property: "og:image", content: rushHero.url },
+      { name: "description", content: "Clube do Raul apresenta Esquenta Carnaval 2026. Novo Hit + Thiago Paraguassu + Daneil Bonner. Garanta seu ingresso agora." },
+      { property: "og:title", content: "CLUBE DO RAUL | Esquenta Carnaval 2026" },
+      { property: "og:description", content: "Clube do Raul apresenta Esquenta Carnaval 2026. Novo Hit + Thiago Paraguassu + Daneil Bonner. Garanta seu ingresso agora." },
+      { property: "og:image", content: esquentaHero.url },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: rushHero.url },
+      { name: "twitter:image", content: esquentaHero.url },
     ],
   }),
   component: Index,
@@ -34,8 +35,8 @@ function Index() {
       {/* Hero */}
       <header className="relative min-h-[80vh] md:min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-0 overflow-hidden">
         <div 
-          className="absolute inset-0 bg-cover bg-center brightness-[0.6]" 
-          style={{ backgroundImage: `url(${rushHero.url})` }}
+          className="absolute inset-0 bg-cover bg-center brightness-[0.8]" 
+          style={{ backgroundImage: `url(${esquentaHero.url})` }}
         />
         {/* Overlay gradient for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
@@ -44,17 +45,17 @@ function Index() {
           <p className="text-primary font-bold tracking-[0.3em] text-sm md:text-base animate-in fade-in slide-in-from-top-4 duration-1000 uppercase">
             CLUBE DO RAUL PRESENTS
           </p>
-          <h1 className="font-['Archivo_Black'] text-6xl sm:text-8xl md:text-[10rem] text-primary mb-2 md:mb-4 tracking-tighter leading-[0.8] animate-in zoom-in-95 duration-1000">
-            RUSH
+          <h1 className="font-['Archivo_Black'] text-6xl sm:text-8xl md:text-[10rem] text-primary mb-2 md:mb-4 tracking-tighter leading-[0.8] animate-in zoom-in-95 duration-1000 uppercase">
+            Esquenta
             <br />
-            <span className="text-foreground italic font-sans text-4xl sm:text-6xl md:text-8xl tracking-normal block -mt-4 md:-mt-8">Night</span>
+            <span className="text-foreground italic font-sans text-4xl sm:text-6xl md:text-8xl tracking-normal block -mt-4 md:-mt-8">Carnaval 2026</span>
           </h1>
           <div className="flex flex-wrap justify-center gap-4 text-xs md:text-sm font-bold tracking-widest text-foreground/80 mb-8">
-            <span className="border border-foreground/20 px-3 py-1">TECH HOUSE</span>
+            <span className="border border-foreground/20 px-3 py-1">NOVO HIT</span>
             <span className="text-primary">+</span>
-            <span className="border border-foreground/20 px-3 py-1">HOUSE</span>
+            <span className="border border-foreground/20 px-3 py-1">THIAGO PARAGUASSU</span>
             <span className="text-primary">+</span>
-            <span className="border border-foreground/20 px-3 py-1">AFRO HOUSE</span>
+            <span className="border border-foreground/20 px-3 py-1">DANEIL BONNER</span>
           </div>
           <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,69,0,0.5)]">
             COMPRAR INGRESSOS AGORA
@@ -87,9 +88,8 @@ function Index() {
           <h2 className="font-['Archivo_Black'] text-3xl md:text-4xl mb-8 md:12 text-primary">PROGRAMAÇÃO</h2>
           <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-primary/30">
             {[
-              { time: "23:00 - 01:00", artist: "DJ NOVA" },
-              { time: "01:00 - 03:00", artist: "DJ KAIRO" },
-              { time: "03:00 - 05:00", artist: "DJ VYBE" },
+              { time: "07.FEV", artist: "A PARTIR DAS 21H" },
+              { time: "ELAS FREE", artist: "ATÉ ÀS 22H" },
             ].map((item) => (
               <div key={item.artist} className="pl-8 relative">
                 <div className="absolute left-0 top-2 size-4 rounded-full bg-primary" />
@@ -146,7 +146,7 @@ function Index() {
           <div className="space-y-4">
           </div>
         </div>
-        <div className="text-center mt-12 text-muted-foreground">© 2024 CLUBE DO RAUL | RUSH Night. Privacy Policy</div>
+        <div className="text-center mt-12 text-muted-foreground">© 2024 CLUBE DO RAUL | Esquenta Carnaval 2026. Privacy Policy</div>
       </footer>
     </div>
   );
