@@ -7,7 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -130,22 +130,76 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallLink, setShowInstallLink] = useState(false);
+
 
   useEffect(() => {
-    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/sw.js", { scope: "/" })
-          .then((reg) => console.log("SW registered:", reg))
-          .catch((err) => console.log("SW error:", err));
+    if (typeof window !== "undefined") {
+      // Register Service Worker
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js", { scope: "/" })
+            .then((reg) => console.log("SW registered:", reg))
+            .catch((err) => console.log("SW error:", err));
+        });
+      }
+
+      // Intercept PWA Install Prompt
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        setDeferredPrompt(e);
+        setShowInstallLink(true);
+      });
+
+      // Handle successful installation
+      window.addEventListener("appinstalled", () => {
+        setDeferredPrompt(null);
+        setShowInstallLink(false);
       });
     }
   }, []);
 
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === "accepted") {
+        setDeferredPrompt(null);
+        setShowInstallLink(false);
+      }
+    }
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      {showInstallLink ? (
+        <div className="fixed inset-0 z-[9999] bg-background flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-500">
+          <div className="w-24 h-24 mb-6 rounded-2xl overflow-hidden shadow-2xl animate-in zoom-in duration-700">
+            <img src="/favicon.png" alt="App Icon" className="w-full h-full object-cover" />
+          </div>
+          <h1 className="text-2xl font-['Archivo_Black'] text-primary mb-2">CLUBE DO RAUL</h1>
+          <p className="text-muted-foreground mb-8 max-w-xs">
+            Instale o nosso aplicativo para uma experiência completa e acesso rápido aos ingressos.
+          </p>
+          <button
+            onClick={handleInstallClick}
+            className="w-full max-w-xs bg-primary hover:bg-primary/90 text-primary-foreground py-4 rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(255,69,0,0.3)] transition-all active:scale-95 mb-4"
+          >
+            INSTALAR APLICATIVO
+          </button>
+          <button
+            onClick={() => setShowInstallLink(false)}
+            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Continuar para o site
+          </button>
+        </div>
+      ) : (
+        <Outlet />
+      )}
     </QueryClientProvider>
   );
 }
+
