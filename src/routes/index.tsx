@@ -109,8 +109,9 @@ function Index() {
               src={mapPinAsset.url} 
               alt="Mapa do Evento" 
               className="w-full max-w-[400px] h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform cursor-pointer"
-              onClick={() => window.open('https://maps.app.goo.gl/TwzYiP7oHLbrUuvT8', '_blank')}
+              onClick={() => window.open("https://www.google.com/maps/search/?api=1&query=-12.0746355%2C-45.7293565", "_blank", "noopener,noreferrer")}
             />
+
           </div>
 
         </div>
