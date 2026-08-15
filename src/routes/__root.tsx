@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CLUBE DO RAUL | RUSH Night" },
-      { name: "description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { title: "CLUBE DO RAUL | Esquenta Carnaval 2026" },
+      { name: "description", content: "Clube do Raul apresenta Esquenta Carnaval 2026. Novo Hit + Thiago Paraguassu + Daneil Bonner. Garanta seu ingresso agora." },
       { name: "author", content: "Clube do Raul" },
-      { property: "og:title", content: "CLUBE DO RAUL | RUSH Night" },
-      { property: "og:description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { property: "og:title", content: "CLUBE DO RAUL | Esquenta Carnaval 2026" },
+      { property: "og:description", content: "Clube do Raul apresenta Esquenta Carnaval 2026. Novo Hit + Thiago Paraguassu + Daneil Bonner. Garanta seu ingresso agora." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "theme-color", content: "#FF4500" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "apple-mobile-web-app-title", content: "CLUBE DO RAUL" },
     ],
     links: [
       {
@@ -100,6 +104,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -124,6 +130,17 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/sw.js", { scope: "/" })
+          .then((reg) => console.log("SW registered:", reg))
+          .catch((err) => console.log("SW error:", err));
+      });
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
