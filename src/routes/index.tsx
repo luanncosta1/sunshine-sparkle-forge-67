@@ -35,16 +35,34 @@ function Index() {
       </nav>
 
       {/* Hero */}
-      <header className="relative min-h-[60vh] md:h-[80vh] flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-0">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=2000')] bg-cover bg-center brightness-[0.3]" />
-        <h1 className="relative font-['Archivo_Black'] text-4xl sm:text-6xl md:text-8xl text-primary mb-6 md:mb-8 tracking-tighter leading-tight">
-          VIBE FESTIVAL 2024:
-          <br />
-          A NOITE DA SUA VIDA
-        </h1>
-        <button className="relative bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-transform hover:scale-105">
-          COMPRAR INGRESSOS AGORA
-        </button>
+      <header className="relative min-h-[80vh] md:min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-0 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center brightness-[0.6]" 
+          style={{ backgroundImage: `url(${rushHero.url})` }}
+        />
+        {/* Overlay gradient for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
+        
+        <div className="relative z-10 space-y-4">
+          <p className="text-primary font-bold tracking-[0.3em] text-sm md:text-base animate-in fade-in slide-in-from-top-4 duration-1000">
+            NOVA GROUP PRESENTS
+          </p>
+          <h1 className="font-['Archivo_Black'] text-6xl sm:text-8xl md:text-[10rem] text-primary mb-2 md:mb-4 tracking-tighter leading-[0.8] animate-in zoom-in-95 duration-1000">
+            RUSH
+            <br />
+            <span className="text-foreground italic font-sans text-4xl sm:text-6xl md:text-8xl tracking-normal block -mt-4 md:-mt-8">Night</span>
+          </h1>
+          <div className="flex flex-wrap justify-center gap-4 text-xs md:text-sm font-bold tracking-widest text-foreground/80 mb-8">
+            <span className="border border-foreground/20 px-3 py-1">TECH HOUSE</span>
+            <span className="text-primary">+</span>
+            <span className="border border-foreground/20 px-3 py-1">HOUSE</span>
+            <span className="text-primary">+</span>
+            <span className="border border-foreground/20 px-3 py-1">AFRO HOUSE</span>
+          </div>
+          <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,69,0,0.5)]">
+            COMPRAR INGRESSOS AGORA
+          </button>
+        </div>
       </header>
 
       {/* Tickets */}
