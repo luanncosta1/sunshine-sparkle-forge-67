@@ -146,7 +146,7 @@ function Index() {
           <div className="space-y-4">
           </div>
         </div>
-        <div className="text-center mt-12 text-muted-foreground">© 2024 CLUBE DO RAUL | RUSH Night. Privacy Policy</div>
+        <div className="text-center mt-12 text-muted-foreground">© 2024 CLUBE DO RAUL | Esquenta Carnaval 2026. Privacy Policy</div>
       </footer>
     </div>
   );
