@@ -138,10 +138,24 @@ function RootComponent() {
           .register("/sw.js", { scope: "/" })
           .then((reg) => {
             console.log("SW registered:", reg);
-            // Verifica atualizações a cada 10 minutos
+            
+            // Força a atualização se houver um novo SW
+            reg.addEventListener('updatefound', () => {
+              const newWorker = reg.installing;
+              if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    // Notifica o usuário ou recarrega a página para aplicar a atualização
+                    window.location.reload();
+                  }
+                });
+              }
+            });
+
+            // Verifica atualizações a cada 2 minutos enquanto a página está aberta
             setInterval(() => {
               reg.update();
-            }, 600000);
+            }, 120000);
           })
           .catch((err) => console.log("SW error:", err));
       });
