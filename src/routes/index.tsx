@@ -121,7 +121,7 @@ function Index() {
             <h4 className="font-bold w-full text-center">SOCIAL</h4>
             <div className="flex gap-8 justify-center w-full">
               <a 
-                href="https://www.instagram.com/seu_perfil" 
+                href="https://www.instagram.com/club_do_raul?igsh=ZXllYXZ5cmt4cDlv" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-4xl hover:text-primary transition-colors hover:scale-110"
