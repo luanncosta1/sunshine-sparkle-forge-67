@@ -45,17 +45,17 @@ function Index() {
           <p className="text-primary font-bold tracking-[0.3em] text-sm md:text-base animate-in fade-in slide-in-from-top-4 duration-1000 uppercase">
             CLUBE DO RAUL PRESENTS
           </p>
-          <h1 className="font-['Archivo_Black'] text-6xl sm:text-8xl md:text-[10rem] text-primary mb-2 md:mb-4 tracking-tighter leading-[0.8] animate-in zoom-in-95 duration-1000">
-            RUSH
+          <h1 className="font-['Archivo_Black'] text-6xl sm:text-8xl md:text-[10rem] text-primary mb-2 md:mb-4 tracking-tighter leading-[0.8] animate-in zoom-in-95 duration-1000 uppercase">
+            Esquenta
             <br />
-            <span className="text-foreground italic font-sans text-4xl sm:text-6xl md:text-8xl tracking-normal block -mt-4 md:-mt-8">Night</span>
+            <span className="text-foreground italic font-sans text-4xl sm:text-6xl md:text-8xl tracking-normal block -mt-4 md:-mt-8">Carnaval 2026</span>
           </h1>
           <div className="flex flex-wrap justify-center gap-4 text-xs md:text-sm font-bold tracking-widest text-foreground/80 mb-8">
-            <span className="border border-foreground/20 px-3 py-1">TECH HOUSE</span>
+            <span className="border border-foreground/20 px-3 py-1">NOVO HIT</span>
             <span className="text-primary">+</span>
-            <span className="border border-foreground/20 px-3 py-1">HOUSE</span>
+            <span className="border border-foreground/20 px-3 py-1">THIAGO PARAGUASSU</span>
             <span className="text-primary">+</span>
-            <span className="border border-foreground/20 px-3 py-1">AFRO HOUSE</span>
+            <span className="border border-foreground/20 px-3 py-1">DANEIL BONNER</span>
           </div>
           <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-12 py-3 md:py-4 rounded-full font-bold text-lg md:text-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,69,0,0.5)]">
             COMPRAR INGRESSOS AGORA
