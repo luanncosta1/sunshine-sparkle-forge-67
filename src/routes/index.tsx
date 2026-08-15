@@ -3,11 +3,11 @@ import rushHero from "@/assets/rush_hero.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    title: "RUSH Night | Nova Group Presents",
+    title: "CLUBE DO RAUL | RUSH Night",
     meta: [
-      { name: "description", content: "Nova Group presents RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
-      { property: "og:title", content: "RUSH Night | Nova Group Presents" },
-      { property: "og:description", content: "Nova Group presents RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { name: "description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { property: "og:title", content: "CLUBE DO RAUL | RUSH Night" },
+      { property: "og:description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
       { property: "og:image", content: rushHero.url },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: rushHero.url },
