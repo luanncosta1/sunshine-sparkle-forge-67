@@ -22,6 +22,15 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(() => {
+    // Force a check for new content when the user returns to the page
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.update();
+      });
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
       {/* Navbar */}
