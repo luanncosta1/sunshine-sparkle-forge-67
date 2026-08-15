@@ -130,8 +130,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const [deferredPrompt, setDeferredPrompt] = useEffect.useState<any>(null);
-  const [showInstallLink, setShowInstallLink] = useEffect.useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallLink, setShowInstallLink] = useState(false);
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {
