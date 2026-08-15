@@ -136,7 +136,13 @@ function RootComponent() {
       window.addEventListener("load", () => {
         navigator.serviceWorker
           .register("/sw.js", { scope: "/" })
-          .then((reg) => console.log("SW registered:", reg))
+          .then((reg) => {
+            console.log("SW registered:", reg);
+            // Verifica atualizações a cada 10 minutos
+            setInterval(() => {
+              reg.update();
+            }, 600000);
+          })
           .catch((err) => console.log("SW error:", err));
       });
     }
