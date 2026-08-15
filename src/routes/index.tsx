@@ -137,7 +137,7 @@ function Index() {
             <input type="email" placeholder="Enter email" className="w-full bg-muted border border-border p-3 rounded-lg" />
           </div>
         </div>
-        <div className="text-center mt-12 text-muted-foreground">© 2024 Vibe Festival. Privacy Policy</div>
+        <div className="text-center mt-12 text-muted-foreground">© 2024 RUSH Night. Privacy Policy</div>
       </footer>
     </div>
   );
