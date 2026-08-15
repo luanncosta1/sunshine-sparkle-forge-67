@@ -1,6 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    title: "Vibe Festival 2024 | A Noite da Sua Vida",
+    meta: [
+      { name: "description", content: "Garanta seu ingresso para o Vibe Festival 2024. A maior noite da sua vida com as melhores atrações." },
+      { property: "og:title", content: "Vibe Festival 2024 | A Noite da Sua Vida" },
+      { property: "og:description", content: "Garanta seu ingresso para o Vibe Festival 2024. A maior noite da sua vida com as melhores atrações." },
+      { property: "og:image", content: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=2000" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?q=80&w=2000" },
+    ],
+  }),
   component: Index,
 });
 
