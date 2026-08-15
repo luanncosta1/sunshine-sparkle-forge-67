@@ -20,15 +20,8 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       {/* Navbar */}
-      <nav className="fixed w-full z-50 flex items-center justify-between px-4 md:px-8 py-4 md:py-6 bg-background/80 backdrop-blur-md md:bg-transparent">
-        <div className="hidden md:flex gap-8 text-sm font-medium">
-          {["Início", "Programação", "Mapa de Evento", "Contato"].map((item) => (
-            <a key={item} href="#" className="hover:text-primary transition-colors">
-              {item}
-            </a>
-          ))}
-        </div>
-        <div className="flex md:hidden text-primary font-bold">RUSH 2024</div>
+      <nav className="fixed w-full z-50 flex items-center justify-center px-4 md:px-8 py-4 md:py-6 bg-background/80 backdrop-blur-md">
+        <div className="text-primary font-bold text-xl tracking-[0.2em] font-['Archivo_Black'] uppercase">CLUBE DO RAUL</div>
       </nav>
 
       {/* Hero */}
