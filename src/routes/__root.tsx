@@ -89,6 +89,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "apple-mobile-web-app-title", content: "CLUBE DO RAUL" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      { "http-equiv": "Cache-Control", content: "no-cache, no-store, must-revalidate" },
+      { "http-equiv": "Pragma", content: "no-cache" },
+      { "http-equiv": "Expires", content: "0" },
     ],
     links: [
       {
@@ -104,7 +108,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
-      { rel: "manifest", href: "/manifest.webmanifest" },
+      
       { rel: "apple-touch-icon", href: "/favicon.png" },
     ],
   }),
@@ -131,16 +135,6 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker
-          .register("/sw.js", { scope: "/" })
-          .then((reg) => console.log("SW registered:", reg))
-          .catch((err) => console.log("SW error:", err));
-      });
-    }
-  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

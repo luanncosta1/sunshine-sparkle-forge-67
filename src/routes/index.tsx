@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import rushHero from "@/assets/rush_hero.jpg.asset.json";
 import logoAsset from "@/assets/club_do_raul_logo.png.asset.json";
 import esquentaHero from "@/assets/esquenta_clube_do_raul.png.asset.json";
 import bgAsset from "@/assets/BG.png.asset.json";
 import mapPinAsset from "@/assets/map_pin.png.asset.json";
+import { useEffect } from "react";
 
 
 export const Route = createFileRoute("/")({
@@ -22,6 +22,15 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(() => {
+    // Force a check for new content when the user returns to the page
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.update();
+      });
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
       {/* Navbar */}
