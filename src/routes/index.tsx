@@ -3,11 +3,11 @@ import rushHero from "@/assets/rush_hero.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
-    title: "RUSH Night | Nova Group Presents",
+    title: "CLUBE DO RAUL | RUSH Night",
     meta: [
-      { name: "description", content: "Nova Group presents RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
-      { property: "og:title", content: "RUSH Night | Nova Group Presents" },
-      { property: "og:description", content: "Nova Group presents RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { name: "description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
+      { property: "og:title", content: "CLUBE DO RAUL | RUSH Night" },
+      { property: "og:description", content: "Clube do Raul apresenta RUSH Night. Tech House + House + Afro House. Garanta seu ingresso agora." },
       { property: "og:image", content: rushHero.url },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: rushHero.url },
@@ -20,15 +20,8 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       {/* Navbar */}
-      <nav className="fixed w-full z-50 flex items-center justify-between px-4 md:px-8 py-4 md:py-6 bg-background/80 backdrop-blur-md md:bg-transparent">
-        <div className="hidden md:flex gap-8 text-sm font-medium">
-          {["Início", "Programação", "Mapa de Evento", "Contato"].map((item) => (
-            <a key={item} href="#" className="hover:text-primary transition-colors">
-              {item}
-            </a>
-          ))}
-        </div>
-        <div className="flex md:hidden text-primary font-bold">RUSH 2024</div>
+      <nav className="fixed w-full z-50 flex items-center justify-center px-4 md:px-8 py-4 md:py-6 bg-background/80 backdrop-blur-md">
+        <div className="text-primary font-bold text-xl tracking-[0.2em] font-['Archivo_Black'] uppercase">CLUBE DO RAUL</div>
       </nav>
 
       {/* Hero */}
@@ -41,8 +34,8 @@ function Index() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
         
         <div className="relative z-10 space-y-4">
-          <p className="text-primary font-bold tracking-[0.3em] text-sm md:text-base animate-in fade-in slide-in-from-top-4 duration-1000">
-            NOVA GROUP PRESENTS
+          <p className="text-primary font-bold tracking-[0.3em] text-sm md:text-base animate-in fade-in slide-in-from-top-4 duration-1000 uppercase">
+            CLUBE DO RAUL PRESENTS
           </p>
           <h1 className="font-['Archivo_Black'] text-6xl sm:text-8xl md:text-[10rem] text-primary mb-2 md:mb-4 tracking-tighter leading-[0.8] animate-in zoom-in-95 duration-1000">
             RUSH
@@ -146,7 +139,7 @@ function Index() {
           <div className="space-y-4">
           </div>
         </div>
-        <div className="text-center mt-12 text-muted-foreground">© 2024 RUSH Night. Privacy Policy</div>
+        <div className="text-center mt-12 text-muted-foreground">© 2024 CLUBE DO RAUL | RUSH Night. Privacy Policy</div>
       </footer>
     </div>
   );
