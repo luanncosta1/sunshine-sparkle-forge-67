@@ -107,9 +107,9 @@ function Index() {
         <h2 className="text-center font-['Archivo_Black'] text-3xl md:text-4xl mb-12 md:16 text-primary">TIPOS DE INGRESSOS</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           {[
-            { name: "PISTA", price: "R$ 120,00" },
-            { name: "VIP", price: "R$ 250,00" },
-            { name: "CAMAROTE", price: "R$ 400,00" },
+            { name: "PISTA", price: "R$ 1,00" },
+            { name: "VIP", price: "R$ 1,00" },
+            { name: "CAMAROTE", price: "R$ 1,00" },
           ].map((ticket) => (
             <div key={ticket.name} className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl text-center">
               <h3 className="text-2xl font-bold mb-4">{ticket.name}</h3>
