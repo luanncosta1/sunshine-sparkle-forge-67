@@ -66,9 +66,9 @@ function Index() {
         </div>
       </section>
       {/* Schedule and Map */}
-      <section className="py-24 px-8 max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
+      <section className="py-16 md:py-24 px-4 md:px-8 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
         <div>
-          <h2 className="font-['Archivo_Black'] text-4xl mb-12 text-primary">PROGRAMAÇÃO</h2>
+          <h2 className="font-['Archivo_Black'] text-3xl md:text-4xl mb-8 md:12 text-primary">PROGRAMAÇÃO</h2>
           <div className="space-y-8 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[2px] before:bg-primary/30">
             {[
               { time: "20:00 - 21:00", artist: "PISTA" },
