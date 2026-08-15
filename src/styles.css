@@ -119,8 +119,15 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  body::-webkit-scrollbar {
+    display: none;
   }
 }
+
 
 #lovable-badge {
   display: none !important;
