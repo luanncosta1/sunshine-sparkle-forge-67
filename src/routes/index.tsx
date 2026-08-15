@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import rushHero from "@/assets/rush_hero.jpg.asset.json";
+import logoAsset from "@/assets/club_do_raul_logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,8 +21,14 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans">
       {/* Navbar */}
-      <nav className="fixed w-full z-50 flex items-center justify-center px-4 md:px-8 py-4 md:py-6 bg-background/80 backdrop-blur-md">
-        <div className="text-primary font-bold text-lg md:text-xl tracking-[0.2em] font-['Archivo_Black'] uppercase">CLUBE DO RAUL</div>
+      <nav className="fixed w-full z-50 flex items-center justify-between px-4 md:px-8 py-4 md:py-6 bg-background/80 backdrop-blur-md">
+        <div className="flex-1 flex justify-start">
+          <img src={logoAsset.url} alt="Logo Clube do Raul" className="h-10 md:h-12 w-auto object-contain" />
+        </div>
+        <div className="text-primary font-bold text-lg md:text-xl tracking-[0.2em] font-['Archivo_Black'] uppercase absolute left-1/2 -translate-x-1/2">
+          CLUBE DO RAUL
+        </div>
+        <div className="flex-1" />
       </nav>
 
       {/* Hero */}
