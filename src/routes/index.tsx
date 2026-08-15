@@ -22,6 +22,63 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [isLocating, setIsLocating] = useState(false);
+
+  const handleGetLocation = useCallback(() => {
+    if (!navigator.geolocation) {
+      toast.error("Seu navegador não suporta geolocalização.");
+      return;
+    }
+
+    setIsLocating(true);
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setUserLocation({ lat: latitude, lng: longitude });
+        setIsLocating(false);
+        toast.success("Localização obtida com sucesso!");
+      },
+      (error) => {
+        setIsLocating(false);
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            toast.error("Permita o acesso à localização para encontrar sua posição.");
+            break;
+          case error.POSITION_UNAVAILABLE:
+            toast.error("Não foi possível determinar sua localização.");
+            break;
+          case error.TIMEOUT:
+            toast.error("A localização demorou muito para responder. Tente novamente.");
+            break;
+          default:
+            toast.error("Ocorreu um erro ao obter a localização.");
+        }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0,
+      }
+    );
+  }, []);
+
+  const venueLat = -12.0746355;
+  const venueLng = -45.7293565;
+
+  // If we have user location, we use a URL that highlights both or centers on user
+  // For simplicity and "You are here" feel using standard embed, we center on user if available
+  const mapUrl = userLocation 
+    ? `https://www.google.com/maps/embed/v1/place?key=REPLACE_ME_OR_USE_SEARCH&q=${userLocation.lat},${userLocation.lng}`
+    : `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3882.2642676059635!2d-45.731931424161984!3d-12.074630142831518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935c3915124b89f5%3A0xea3d82a4d3b66472!2sClube%20do%20Raul!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr`;
+  
+  // Note: The Embed API v1 requires a key. Standard embed (pb=...) doesn't easily support dynamic coordinates without a key.
+  // Using a search query embed instead which is free and dynamic:
+  const dynamicMapUrl = userLocation
+    ? `https://www.google.com/maps?q=${userLocation.lat},${userLocation.lng}&z=17&output=embed`
+    : `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3882.2642676059635!2d-45.731931424161984!3d-12.074630142831518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935c3915124b89f5%3A0xea3d82a4d3b66472!2sClube%20do%20Raul!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr`;
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
       {/* Navbar */}
@@ -106,15 +163,23 @@ function Index() {
           <h2 className="font-['Archivo_Black'] text-3xl md:text-4xl mb-8 md:12 text-primary">MAPA DO EVENTO</h2>
           <div className="aspect-[4/3] md:aspect-square bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden relative flex flex-col">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3882.2642676059635!2d-45.731931424161984!3d-12.074630142831518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935c3915124b89f5%3A0xea3d82a4d3b66472!2sClube%20do%20Raul!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr"
+              src={dynamicMapUrl}
               className="w-full flex-grow border-0 grayscale invert brightness-90 contrast-125"
               allowFullScreen={true}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
-            <div className="p-4 bg-background/50 backdrop-blur-sm border-t border-white/10 flex justify-center">
+            <div className="p-4 bg-background/50 backdrop-blur-sm border-t border-white/10 flex justify-center gap-4 flex-wrap">
               <button 
-                onClick={() => window.open('https://www.google.com/maps/dir/?api=1&destination=-12.0746355,-45.7293565', '_blank')}
+                onClick={handleGetLocation}
+                disabled={isLocating}
+                className="bg-white/10 hover:bg-white/20 text-white px-6 py-2 rounded-xl font-bold text-sm transition-all hover:scale-105 flex items-center gap-2 border border-white/10"
+              >
+                <i className={`fa-solid ${isLocating ? 'fa-spinner fa-spin' : 'fa-crosshairs'}`}></i>
+                {isLocating ? 'Localizando...' : 'Minha localização'}
+              </button>
+              <button 
+                onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${venueLat},${venueLng}`, '_blank')}
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-xl font-bold text-sm transition-all hover:scale-105 flex items-center gap-2"
               >
                 <i className="fa-solid fa-location-dot"></i>
