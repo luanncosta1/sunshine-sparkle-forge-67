@@ -119,6 +119,11 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    @apply transition-colors duration-300;
+  }
+
+  button, a {
+    @apply transition-all duration-300 ease-in-out;
   }
 }
 
