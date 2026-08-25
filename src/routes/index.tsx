@@ -148,31 +148,24 @@ function Index() {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8"
+          className="flex justify-center"
         >
-          {[
-            { name: "PISTA", price: "R$ 1,00" },
-            { name: "VIP", price: "R$ 1,00" },
-            { name: "CAMAROTE", price: "R$ 1,00" },
-          ].map((ticket) => (
-            <motion.div 
-              key={ticket.name}
-              variants={fadeInUp}
-              whileHover={{ y: -10 }}
-              className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl text-center group"
+          <motion.div 
+            variants={fadeInUp}
+            whileHover={{ y: -10 }}
+            className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl text-center group w-full max-w-sm"
+          >
+            <h3 className="text-2xl font-bold mb-4">PISTA</h3>
+            <p className="text-3xl font-bold mb-8 text-primary group-hover:scale-110 transition-transform">R$ 1,00</p>
+            <motion.button 
+              whileTap={{ scale: 0.98 }}
+              onClick={() => handlePurchase("PISTA")}
+              disabled={loadingTicket !== null}
+              className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-wait"
             >
-              <h3 className="text-2xl font-bold mb-4">{ticket.name}</h3>
-              <p className="text-3xl font-bold mb-8 text-primary group-hover:scale-110 transition-transform">{ticket.price}</p>
-              <motion.button 
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handlePurchase(ticket.name)}
-                disabled={loadingTicket !== null}
-                className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-wait"
-              >
-                {loadingTicket === ticket.name ? "Carregando..." : "Comprar Ingressos"}
-              </motion.button>
-            </motion.div>
-          ))}
+              {loadingTicket === "PISTA" ? "Carregando..." : "Comprar Ingressos"}
+            </motion.button>
+          </motion.div>
         </motion.div>
       </section>
 
