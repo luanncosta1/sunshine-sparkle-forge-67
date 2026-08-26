@@ -26,7 +26,7 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
           // 1. Fetch current order status (Idempotency check)
           const { data: order, error: fetchError } = await supabaseAdmin
             .from('orders')
-            .select('id, status, customer_name')
+            .select('id, status, customer_name, ticket_type, quantity')
             .eq('reference_id', referenceId)
             .maybeSingle();
 
