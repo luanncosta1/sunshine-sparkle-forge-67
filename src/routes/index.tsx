@@ -89,7 +89,10 @@ function Index() {
       }
     } catch (error) {
       console.error("Purchase error:", error);
-      toast.error("Erro ao iniciar a compra. Tente novamente ou use o WhatsApp.");
+      const message = error instanceof Error && error.message
+        ? error.message
+        : "Erro ao iniciar a compra. Tente novamente ou use o WhatsApp.";
+      toast.error(message);
     } finally {
       setLoadingTicket(null);
     }
