@@ -64,8 +64,25 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
             return new Response('Database error', { status: 500 });
           }
 
-          // 4. If PAID, generate ticket
+          // 4. If PAID, register the sale in stock and generate ticket
           if (internalStatus === 'paid') {
+            // 4a. Atomically increment sold quantity for the active lot.
+            // The DB function only succeeds when enough stock remains,
+            // preventing overselling even with simultaneous purchases.
+            const { data: stockSold, error: stockError } = await supabaseAdmin
+              .rpc('sell_lot_stock', {
+                _ticket_type: order.ticket_type,
+                _quantity: order.quantity
+              });
+
+            if (stockError) {
+              console.error('Error updating lot stock:', stockError);
+            } else if (stockSold === false) {
+              console.error(`CRITICAL: Payment confirmed for order ${referenceId} but lot ${order.ticket_type} is sold out. Manual review required.`);
+            } else {
+              console.log(`Stock updated: ${order.quantity} x ${order.ticket_type} sold (order ${referenceId})`);
+            }
+
             const ticketCode = generateTicketCode(order.id);
             const qrCodeData = generateQrCodeData(ticketCode);
 

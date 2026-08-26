@@ -4,9 +4,22 @@ import esquentaHero from "@/assets/esquenta_clube_do_raul.png.asset.json";
 import bgAsset from "@/assets/BG.png.asset.json";
 import mapPinAsset from "@/assets/map_pin.png.asset.json";
 import { useEffect, useState } from "react";
-import { createCheckout } from "@/lib/payments.functions";
+import { useQuery } from "@tanstack/react-query";
+import { createCheckout, getTicketLots } from "@/lib/payments.functions";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+
+interface TicketLot {
+  ticket_type: string;
+  lot_number: number;
+  total_quantity: number;
+  sold_quantity: number;
+  available_quantity: number;
+  price: number;
+}
+
+const formatPrice = (cents: number) =>
+  `R$ ${(cents / 100).toFixed(2).replace(".", ",")}`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
