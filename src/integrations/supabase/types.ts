@@ -71,6 +71,42 @@ export type Database = {
         }
         Relationships: []
       }
+      ticket_lots: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          lot_number: number
+          price: number
+          sold_quantity: number
+          ticket_type: string
+          total_quantity: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          lot_number?: number
+          price: number
+          sold_quantity?: number
+          ticket_type: string
+          total_quantity: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          lot_number?: number
+          price?: number
+          sold_quantity?: number
+          ticket_type?: string
+          total_quantity?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       tickets: {
         Row: {
           created_at: string | null
@@ -114,7 +150,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      sell_lot_stock: {
+        Args: { _quantity: number; _ticket_type: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never

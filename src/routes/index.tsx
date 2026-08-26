@@ -4,9 +4,22 @@ import esquentaHero from "@/assets/esquenta_clube_do_raul.png.asset.json";
 import bgAsset from "@/assets/BG.png.asset.json";
 import mapPinAsset from "@/assets/map_pin.png.asset.json";
 import { useEffect, useState } from "react";
-import { createCheckout } from "@/lib/payments.functions";
+import { useQuery } from "@tanstack/react-query";
+import { createCheckout, getTicketLots } from "@/lib/payments.functions";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+
+interface TicketLot {
+  ticket_type: string;
+  lot_number: number;
+  total_quantity: number;
+  sold_quantity: number;
+  available_quantity: number;
+  price: number;
+}
+
+const formatPrice = (cents: number) =>
+  `R$ ${(cents / 100).toFixed(2).replace(".", ",")}`;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,6 +52,15 @@ const staggerContainer = {
 function Index() {
   const [loadingTicket, setLoadingTicket] = useState<string | null>(null);
 
+  // Real stock from the database, refreshed periodically
+  const { data: lots } = useQuery<TicketLot[]>({
+    queryKey: ["ticket-lots"],
+    queryFn: () => getTicketLots(),
+    refetchInterval: 15000,
+  });
+
+  const getLot = (type: string) => lots?.find((l) => l.ticket_type === type);
+
   useEffect(() => {
     // Force a check for new content when the user returns to the page
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
@@ -67,7 +89,10 @@ function Index() {
       }
     } catch (error) {
       console.error("Purchase error:", error);
-      toast.error("Erro ao iniciar a compra. Tente novamente ou use o WhatsApp.");
+      const message = error instanceof Error && error.message
+        ? error.message
+        : "Erro ao iniciar a compra. Tente novamente ou use o WhatsApp.";
+      toast.error(message);
     } finally {
       setLoadingTicket(null);
     }
@@ -148,31 +173,69 @@ function Index() {
           initial="initial"
           whileInView="whileInView"
           viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-3xl mx-auto"
         >
           {[
-            { name: "PISTA", price: "R$ 1,00" },
-            { name: "VIP", price: "R$ 1,00" },
-            { name: "CAMAROTE", price: "R$ 1,00" },
-          ].map((ticket) => (
-            <motion.div 
-              key={ticket.name}
-              variants={fadeInUp}
-              whileHover={{ y: -10 }}
-              className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl text-center group"
-            >
-              <h3 className="text-2xl font-bold mb-4">{ticket.name}</h3>
-              <p className="text-3xl font-bold mb-8 text-primary group-hover:scale-110 transition-transform">{ticket.price}</p>
-              <motion.button 
-                whileTap={{ scale: 0.98 }}
-                onClick={() => handlePurchase(ticket.name)}
-                disabled={loadingTicket !== null}
-                className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-wait"
+            { name: "PISTA", fallbackPrice: 3000 },
+            { name: "CASADINHA", fallbackPrice: 5000 },
+          ].map((ticket) => {
+            const lot = getLot(ticket.name);
+            const total = lot?.total_quantity ?? 100;
+            const available = lot?.available_quantity ?? 100;
+            const soldOut = available <= 0;
+            const percent = Math.max(0, Math.min(100, (available / total) * 100));
+
+            return (
+              <motion.div 
+                key={ticket.name}
+                variants={fadeInUp}
+                whileHover={{ y: -10 }}
+                className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl text-center group"
               >
-                {loadingTicket === ticket.name ? "Carregando..." : "Comprar Ingressos"}
-              </motion.button>
-            </motion.div>
-          ))}
+                <h3 className="text-2xl font-bold mb-4">{ticket.name}</h3>
+                <p className="text-3xl font-bold mb-6 text-primary group-hover:scale-110 transition-transform">
+                  {formatPrice(lot?.price ?? ticket.fallbackPrice)}
+                </p>
+
+                {/* 1st lot stock counter (real, from database) */}
+                <div className="mb-8 space-y-2">
+                  <div className="text-xs font-bold tracking-[0.2em] text-primary">
+                    {lot ? `${lot.lot_number}º LOTE` : "1º LOTE"}
+                  </div>
+                  <div className="w-full h-3 rounded-full bg-white/10 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${percent}%` }}
+                      viewport={{ once: true }}
+                      animate={{ width: `${percent}%` }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      className={`h-full rounded-full ${soldOut ? "bg-muted-foreground" : "bg-primary"}`}
+                    />
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {soldOut ? (
+                      <span className="text-primary font-bold">1º LOTE ESGOTADO</span>
+                    ) : (
+                      <>{available} de {total} ingressos disponíveis</>
+                    )}
+                  </div>
+                </div>
+
+                <motion.button 
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handlePurchase(ticket.name)}
+                  disabled={loadingTicket !== null || soldOut}
+                  className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {soldOut
+                    ? "1º LOTE ESGOTADO"
+                    : loadingTicket === ticket.name
+                      ? "Carregando..."
+                      : "Comprar Ingressos"}
+                </motion.button>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </section>
 
