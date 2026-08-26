@@ -1,8 +1,9 @@
 
+// Ticket prices are sourced from the active lot in the `ticket_lots` table
+// (source of truth). This map is only a last-resort fallback in cents.
 export const TICKET_PRICES: Record<string, number> = {
-  "PISTA": 100, // 1.00 in cents
-  "VIP": 100,   // 1.00 in cents
-  "CAMAROTE": 100 // 1.00 in cents
+  "PISTA": 3000,      // 30.00 in cents
+  "CASADINHA": 5000   // 50.00 in cents
 };
 
 export interface PagBankCheckoutItem {
