@@ -20,6 +20,7 @@ export type Database = {
           customer_email: string | null
           customer_name: string | null
           customer_phone: string | null
+          customer_whatsapp: string | null
           event_id: string | null
           id: string
           pagbank_checkout_id: string | null
@@ -38,6 +39,7 @@ export type Database = {
           customer_email?: string | null
           customer_name?: string | null
           customer_phone?: string | null
+          customer_whatsapp?: string | null
           event_id?: string | null
           id?: string
           pagbank_checkout_id?: string | null
@@ -56,6 +58,7 @@ export type Database = {
           customer_email?: string | null
           customer_name?: string | null
           customer_phone?: string | null
+          customer_whatsapp?: string | null
           event_id?: string | null
           id?: string
           pagbank_checkout_id?: string | null
@@ -110,30 +113,51 @@ export type Database = {
       tickets: {
         Row: {
           created_at: string | null
+          customer_whatsapp: string | null
           id: string
+          lot_number: number | null
           order_id: string
+          pdf_path: string | null
           qr_code_data: string
           status: string
           ticket_code: string
+          ticket_number: number | null
+          ticket_type: string | null
           updated_at: string | null
+          whatsapp_sent: boolean
+          whatsapp_sent_at: string | null
         }
         Insert: {
           created_at?: string | null
+          customer_whatsapp?: string | null
           id?: string
+          lot_number?: number | null
           order_id: string
+          pdf_path?: string | null
           qr_code_data: string
           status?: string
           ticket_code: string
+          ticket_number?: number | null
+          ticket_type?: string | null
           updated_at?: string | null
+          whatsapp_sent?: boolean
+          whatsapp_sent_at?: string | null
         }
         Update: {
           created_at?: string | null
+          customer_whatsapp?: string | null
           id?: string
+          lot_number?: number | null
           order_id?: string
+          pdf_path?: string | null
           qr_code_data?: string
           status?: string
           ticket_code?: string
+          ticket_number?: number | null
+          ticket_type?: string | null
           updated_at?: string | null
+          whatsapp_sent?: boolean
+          whatsapp_sent_at?: string | null
         }
         Relationships: [
           {
@@ -150,6 +174,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      next_ticket_numbers: { Args: { _count: number }; Returns: number[] }
       sell_lot_stock: {
         Args: { _quantity: number; _ticket_type: string }
         Returns: boolean
