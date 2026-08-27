@@ -61,8 +61,12 @@ export const createCheckout = createServerFn({ method: "POST" })
         unit_price: unitPrice,
         total_price: totalPrice,
         status: 'pending',
-        reference_id: referenceId
+        reference_id: referenceId,
+        customer_whatsapp: whatsapp,
+        whatsapp_confirmed: true,
+        whatsapp_confirmed_at: new Date().toISOString()
       })
+
       .select()
       .single();
 
