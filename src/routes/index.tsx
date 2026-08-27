@@ -49,8 +49,20 @@ const staggerContainer = {
   viewport: { once: true }
 };
 
+const formatWhatsapp = (value: string) => {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10)
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+};
+
 function Index() {
   const [loadingTicket, setLoadingTicket] = useState<string | null>(null);
+  const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
+  const [step, setStep] = useState<"input" | "confirm">("input");
+  const [whatsapp, setWhatsapp] = useState("");
 
   // Real stock from the database, refreshed periodically
   const { data: lots } = useQuery<TicketLot[]>({
@@ -70,13 +82,28 @@ function Index() {
     }
   }, []);
 
+  const digits = whatsapp.replace(/\D/g, "");
+
+  const openWhatsappStep = (ticketType: string) => {
+    setSelectedTicket(ticketType);
+    setStep("input");
+  };
+
+  const closeModal = () => {
+    if (loadingTicket) return;
+    setSelectedTicket(null);
+    setStep("input");
+  };
+
   const handlePurchase = async (ticketType: string) => {
     setLoadingTicket(ticketType);
     try {
       const response = await createCheckout({
         data: {
           ticketType,
-          quantity: 1
+          quantity: 1,
+          whatsapp: `+55${digits}`,
+          whatsappConfirmed: true
         }
       });
       
@@ -97,6 +124,7 @@ function Index() {
       setLoadingTicket(null);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
@@ -153,7 +181,7 @@ function Index() {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => handlePurchase("PISTA")}
+            onClick={() => openWhatsappStep("PISTA")}
             disabled={loadingTicket !== null}
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-2 rounded-full font-bold text-base transition-all hover:shadow-[0_0_20px_rgba(255,69,0,0.4)] disabled:opacity-50 disabled:cursor-wait"
           >
@@ -223,7 +251,7 @@ function Index() {
 
                 <motion.button 
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => handlePurchase(ticket.name)}
+                  onClick={() => openWhatsappStep(ticket.name)}
                   disabled={loadingTicket !== null || soldOut}
                   className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -340,6 +368,88 @@ function Index() {
           © 2024 CLUBE DO RAUL | Esquenta Carnaval 2026. Privacy Policy
         </motion.div>
       </footer>
+
+      {/* WhatsApp confirmation step (before PagBank checkout) */}
+      {selectedTicket && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm px-4"
+          onClick={closeModal}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md bg-card/95 border border-primary/30 rounded-2xl p-6 md:p-8 shadow-2xl"
+          >
+            <h3 className="font-['Archivo_Black'] text-xl md:text-2xl text-primary text-center mb-2">
+              CONFIRA SEU WHATSAPP COM ATENÇÃO
+            </h3>
+            <p className="text-sm text-muted-foreground text-center mb-6">
+              Seu ingresso será enviado para este número após a confirmação do
+              pagamento. Se o número estiver errado, você poderá não receber seu
+              ingresso.
+            </p>
+
+            {step === "input" ? (
+              <>
+                <label className="block text-xs font-bold tracking-[0.15em] text-primary mb-2">
+                  SEU WHATSAPP (COM DDD)
+                </label>
+                <input
+                  type="tel"
+                  inputMode="numeric"
+                  autoFocus
+                  value={whatsapp}
+                  onChange={(e) => setWhatsapp(formatWhatsapp(e.target.value))}
+                  placeholder="(77) 99999-9999"
+                  className="w-full bg-white/5 border border-white/15 focus:border-primary outline-none rounded-xl px-4 py-3 text-lg text-foreground placeholder:text-muted-foreground mb-6 transition-colors"
+                />
+                <button
+                  onClick={() => setStep("confirm")}
+                  disabled={digits.length < 10}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-xl font-bold transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  CONTINUAR
+                </button>
+                <button
+                  onClick={closeModal}
+                  className="w-full mt-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Cancelar
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="rounded-xl border border-primary/40 bg-primary/10 px-4 py-5 text-center mb-6">
+                  <div className="text-xs tracking-[0.2em] text-muted-foreground mb-1">
+                    NÚMERO INFORMADO
+                  </div>
+                  <div className="text-2xl font-bold text-primary">
+                    +55 {whatsapp}
+                  </div>
+                </div>
+                <p className="text-center font-bold mb-4">O número está correto?</p>
+                <div className="space-y-3">
+                  <button
+                    onClick={() => handlePurchase(selectedTicket)}
+                    disabled={loadingTicket !== null}
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-wait"
+                  >
+                    {loadingTicket ? "REDIRECIONANDO..." : "SIM, ESTÁ CORRETO"}
+                  </button>
+                  <button
+                    onClick={() => setStep("input")}
+                    disabled={loadingTicket !== null}
+                    className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground py-3 rounded-xl font-bold transition-colors disabled:opacity-50"
+                  >
+                    CORRIGIR NÚMERO
+                  </button>
+                </div>
+              </>
+            )}
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

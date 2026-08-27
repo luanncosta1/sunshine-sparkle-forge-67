@@ -7,11 +7,13 @@ export const createCheckout = createServerFn({ method: "POST" })
   .inputValidator((data) => z.object({
     ticketType: z.string(),
     quantity: z.number().int().min(1).max(20),
-    whatsapp: z.string().min(10).max(20).optional()
+    whatsapp: z.string().trim().min(10).max(20),
+    whatsappConfirmed: z.literal(true)
   }).parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { ticketType, quantity, whatsapp } = data;
+
 
     // 1. Find the active lot for this ticket type (source of truth for price/stock)
     const { data: lot, error: lotError } = await supabaseAdmin
@@ -59,8 +61,12 @@ export const createCheckout = createServerFn({ method: "POST" })
         unit_price: unitPrice,
         total_price: totalPrice,
         status: 'pending',
-        reference_id: referenceId
+        reference_id: referenceId,
+        customer_whatsapp: whatsapp,
+        whatsapp_confirmed: true,
+        whatsapp_confirmed_at: new Date().toISOString()
       })
+
       .select()
       .single();
 

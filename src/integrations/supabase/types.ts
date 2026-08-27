@@ -33,6 +33,8 @@ export type Database = {
           total_price: number
           unit_price: number
           updated_at: string | null
+          whatsapp_confirmed: boolean
+          whatsapp_confirmed_at: string | null
         }
         Insert: {
           created_at?: string | null
@@ -52,6 +54,8 @@ export type Database = {
           total_price: number
           unit_price: number
           updated_at?: string | null
+          whatsapp_confirmed?: boolean
+          whatsapp_confirmed_at?: string | null
         }
         Update: {
           created_at?: string | null
@@ -71,6 +75,8 @@ export type Database = {
           total_price?: number
           unit_price?: number
           updated_at?: string | null
+          whatsapp_confirmed?: boolean
+          whatsapp_confirmed_at?: string | null
         }
         Relationships: []
       }
