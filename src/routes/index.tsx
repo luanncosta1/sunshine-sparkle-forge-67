@@ -122,18 +122,17 @@ function Index() {
       </nav>
 
       {/* Hero */}
-      <header className="relative min-h-[60vh] md:min-h-[70vh] flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-0 overflow-hidden">
-        <motion.div
-          initial={{ scale: 1.05, opacity: 0 }}
+      <header className="relative min-h-[80vh] md:min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-0 overflow-hidden">
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.2 }}
-          className="absolute inset-0 bg-contain bg-no-repeat bg-center brightness-[0.85]"
+          className="absolute inset-0 bg-cover bg-center brightness-[0.8]" 
           style={{ backgroundImage: `url(${esquentaHero.url})` }}
         />
-        {/* Bottom fade bar with gradient effect */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background via-background/80 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
-
+        {/* Overlay gradient for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
+        
         <div className="relative z-10 space-y-4">
           <div className="h-20" /> {/* Spacer */}
         </div>
