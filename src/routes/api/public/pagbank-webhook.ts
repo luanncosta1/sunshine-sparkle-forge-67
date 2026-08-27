@@ -9,6 +9,7 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
         try {
           const { supabaseAdmin } = await import('@/integrations/supabase/client.server');
           const { generateTicketCode, generateQrCodeData } = await import('@/lib/tickets.server');
+          const { renderTicketPdf, formatTicketNumber } = await import('@/lib/ticket-pdf.server');
           const body = await request.json();
 
           console.log('PagBank Webhook received:', JSON.stringify(body));
@@ -26,7 +27,7 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
           // 1. Fetch current order status (Idempotency check)
           const { data: order, error: fetchError } = await supabaseAdmin
             .from('orders')
-            .select('id, status, customer_name, ticket_type, quantity')
+            .select('id, status, customer_name, customer_whatsapp, ticket_type, quantity')
             .eq('reference_id', referenceId)
             .maybeSingle();
 
@@ -44,6 +45,9 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
           // 2. Extract customer data if available
           const customer = body?.customer || {};
           const paymentMethod = body?.payment_method?.type || 'unknown';
+          const phone = customer.phones?.[0]
+            ? `${customer.phones[0].area}${customer.phones[0].number}`
+            : null;
 
           // 3. Update order status
           const { error: updateError } = await supabaseAdmin
@@ -53,7 +57,7 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
               pagbank_transaction_id: pagBankTransactionId,
               customer_name: customer.name || order.customer_name,
               customer_email: customer.email,
-              customer_phone: customer.phones?.[0] ? `${customer.phones[0].area}${customer.phones[0].number}` : null,
+              customer_phone: phone,
               payment_method: paymentMethod,
               updated_at: new Date().toISOString()
             })
@@ -64,11 +68,9 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
             return new Response('Database error', { status: 500 });
           }
 
-          // 4. If PAID, register the sale in stock and generate ticket
+          // 4. If PAID, register the sale in stock and generate the tickets
           if (internalStatus === 'paid') {
             // 4a. Atomically increment sold quantity for the active lot.
-            // The DB function only succeeds when enough stock remains,
-            // preventing overselling even with simultaneous purchases.
             const { data: stockSold, error: stockError } = await supabaseAdmin
               .rpc('sell_lot_stock', {
                 _ticket_type: order.ticket_type,
@@ -79,30 +81,92 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
               console.error('Error updating lot stock:', stockError);
             } else if (stockSold === false) {
               console.error(`CRITICAL: Payment confirmed for order ${referenceId} but lot ${order.ticket_type} is sold out. Manual review required.`);
-            } else {
-              console.log(`Stock updated: ${order.quantity} x ${order.ticket_type} sold (order ${referenceId})`);
             }
 
-            const ticketCode = generateTicketCode(order.id);
-            const qrCodeData = generateQrCodeData(ticketCode);
+            // 4b. Current lot number (for printing on the ticket)
+            const { data: lot } = await supabaseAdmin
+              .from('ticket_lots')
+              .select('lot_number')
+              .eq('ticket_type', order.ticket_type)
+              .eq('active', true)
+              .order('lot_number', { ascending: true })
+              .limit(1)
+              .maybeSingle();
+            const lotNumber = lot?.lot_number ?? 1;
 
-            const { error: ticketError } = await supabaseAdmin
+            // 4c. Guard against duplicate generation (webhook retries)
+            const { data: existing } = await supabaseAdmin
               .from('tickets')
-              .insert({
-                order_id: order.id,
-                ticket_code: ticketCode,
-                qr_code_data: qrCodeData,
-                status: 'valid'
-              });
+              .select('id')
+              .eq('order_id', order.id)
+              .limit(1);
 
-            if (ticketError) {
-              console.error('Error generating ticket:', ticketError);
-              // We don't fail the webhook here but log the error
-            } else {
-              console.log(`Ticket ${ticketCode} generated for order ${referenceId}`);
-              
-              // FUTURE: Trigger WhatsApp/Email notifications here
-              // triggerNotifications(order, ticketCode, qrCodeData);
+            if (existing && existing.length > 0) {
+              console.log(`Tickets already generated for order ${referenceId}.`);
+              return new Response('Already processed', { status: 200 });
+            }
+
+            // 4d. Reserve the sequential numbers in the database (never in the client)
+            const { data: numbers, error: seqError } = await supabaseAdmin
+              .rpc('next_ticket_numbers', { _count: order.quantity });
+
+            if (seqError || !numbers) {
+              console.error('Error reserving ticket numbers:', seqError);
+              return new Response('Numbering error', { status: 500 });
+            }
+
+            const ticketNumbers = (numbers as unknown as number[]).map((n) => Number(n));
+            const whatsapp = order.customer_whatsapp || phone;
+
+            for (const ticketNumber of ticketNumbers) {
+              const ticketCode = generateTicketCode(order.id);
+              const qrCodeData = generateQrCodeData(ticketCode);
+              let pdfPath: string | null = null;
+
+              try {
+                const pdfBytes = await renderTicketPdf({
+                  ticketNumber,
+                  ticketCode,
+                  ticketType: order.ticket_type,
+                  lotNumber,
+                  referenceId,
+                });
+
+                pdfPath = `${referenceId}/ingresso-${formatTicketNumber(ticketNumber)}.pdf`;
+                const { error: uploadError } = await supabaseAdmin.storage
+                  .from('tickets')
+                  .upload(pdfPath, pdfBytes, { contentType: 'application/pdf', upsert: true });
+
+                if (uploadError) {
+                  console.error('Error uploading ticket PDF:', uploadError);
+                  pdfPath = null;
+                }
+              } catch (pdfErr) {
+                console.error('Error rendering ticket PDF:', pdfErr);
+                pdfPath = null;
+              }
+
+              const { error: ticketError } = await supabaseAdmin
+                .from('tickets')
+                .insert({
+                  order_id: order.id,
+                  ticket_code: ticketCode,
+                  qr_code_data: qrCodeData,
+                  status: 'valid',
+                  ticket_number: ticketNumber,
+                  ticket_type: order.ticket_type,
+                  lot_number: lotNumber,
+                  customer_whatsapp: whatsapp,
+                  pdf_path: pdfPath,
+                  whatsapp_sent: false
+                });
+
+              if (ticketError) {
+                console.error('Error generating ticket:', ticketError);
+              } else {
+                console.log(`Ticket ${formatTicketNumber(ticketNumber)} (${ticketCode}) generated for order ${referenceId}`);
+                // FUTURE: send the PDF through the WhatsApp provider and set whatsapp_sent = true
+              }
             }
           }
 
@@ -115,4 +179,3 @@ export const Route = createFileRoute('/api/public/pagbank-webhook')({
     }
   }
 })
-
