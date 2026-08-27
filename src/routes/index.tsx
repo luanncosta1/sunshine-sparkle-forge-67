@@ -49,8 +49,20 @@ const staggerContainer = {
   viewport: { once: true }
 };
 
+const formatWhatsapp = (value: string) => {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10)
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+};
+
 function Index() {
   const [loadingTicket, setLoadingTicket] = useState<string | null>(null);
+  const [selectedTicket, setSelectedTicket] = useState<string | null>(null);
+  const [step, setStep] = useState<"input" | "confirm">("input");
+  const [whatsapp, setWhatsapp] = useState("");
 
   // Real stock from the database, refreshed periodically
   const { data: lots } = useQuery<TicketLot[]>({
@@ -70,13 +82,28 @@ function Index() {
     }
   }, []);
 
+  const digits = whatsapp.replace(/\D/g, "");
+
+  const openWhatsappStep = (ticketType: string) => {
+    setSelectedTicket(ticketType);
+    setStep("input");
+  };
+
+  const closeModal = () => {
+    if (loadingTicket) return;
+    setSelectedTicket(null);
+    setStep("input");
+  };
+
   const handlePurchase = async (ticketType: string) => {
     setLoadingTicket(ticketType);
     try {
       const response = await createCheckout({
         data: {
           ticketType,
-          quantity: 1
+          quantity: 1,
+          whatsapp: `+55${digits}`,
+          whatsappConfirmed: true
         }
       });
       
@@ -97,6 +124,7 @@ function Index() {
       setLoadingTicket(null);
     }
   };
+
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans overflow-x-hidden">
