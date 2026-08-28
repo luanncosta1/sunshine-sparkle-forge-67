@@ -149,7 +149,20 @@ export const getTicketLots = createServerFn({ method: "GET" })
       }
     }
 
-    return Array.from(byType.values());
+    // Shared stock pool: every ticket type shows the same remaining quantity.
+    const entries = Array.from(byType.values());
+    if (entries.length > 0) {
+      const sharedAvailable = Math.min(...entries.map((e) => e.available_quantity));
+      const sharedTotal = Math.min(...entries.map((e) => e.total_quantity));
+      for (const entry of entries) {
+        entry.available_quantity = sharedAvailable;
+        entry.total_quantity = sharedTotal;
+        entry.sold_quantity = sharedTotal - sharedAvailable;
+      }
+    }
+
+    return entries;
+
   });
 
 // Returns only non-sensitive fields for a single order, looked up by its
