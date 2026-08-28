@@ -36,9 +36,17 @@ export const createCheckout = createServerFn({ method: "POST" })
       throw new Error(`Invalid ticket type: ${ticketType}`);
     }
 
-    // 2. Backend stock validation — never sell above available quantity
-    if (lot) {
-      const available = lot.total_quantity - lot.sold_quantity;
+    // 2. Backend stock validation — stock is a SHARED pool across ticket types,
+    // so the availability is the smallest availability among all active lots.
+    const { data: activeLots } = await supabaseAdmin
+      .from('ticket_lots')
+      .select('total_quantity, sold_quantity')
+      .eq('active', true);
+
+    if (activeLots && activeLots.length > 0) {
+      const available = Math.min(
+        ...activeLots.map((l) => l.total_quantity - l.sold_quantity)
+      );
       if (available <= 0) {
         throw new Error('Este lote está esgotado');
       }
@@ -46,6 +54,7 @@ export const createCheckout = createServerFn({ method: "POST" })
         throw new Error(`Apenas ${available} ingresso(s) disponível(is) neste lote`);
       }
     }
+
 
     const totalPrice = unitPrice * quantity;
     const referenceId = `ORD-${Date.now()}-${crypto.randomUUID()}`;
@@ -140,7 +149,20 @@ export const getTicketLots = createServerFn({ method: "GET" })
       }
     }
 
-    return Array.from(byType.values());
+    // Shared stock pool: every ticket type shows the same remaining quantity.
+    const entries = Array.from(byType.values());
+    if (entries.length > 0) {
+      const sharedAvailable = Math.min(...entries.map((e) => e.available_quantity));
+      const sharedTotal = Math.min(...entries.map((e) => e.total_quantity));
+      for (const entry of entries) {
+        entry.available_quantity = sharedAvailable;
+        entry.total_quantity = sharedTotal;
+        entry.sold_quantity = sharedTotal - sharedAvailable;
+      }
+    }
+
+    return entries;
+
   });
 
 // Returns only non-sensitive fields for a single order, looked up by its
