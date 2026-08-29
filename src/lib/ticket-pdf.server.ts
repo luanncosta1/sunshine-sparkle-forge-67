@@ -1,5 +1,5 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
-import ticketTemplate from '@/assets/ticket_template.jpg.asset.json';
+const ticketTemplate = { url: '/images/ticket_template.jpg' };
 
 const TEMPLATE_WIDTH = 1600;
 const TEMPLATE_HEIGHT = 900;
