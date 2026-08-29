@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import logoAsset from "@/assets/club_do_raul_logo.png.asset.json";
-import esquentaHero from "@/assets/esquenta_clube_do_raul.png.asset.json";
-import bgAsset from "@/assets/BG.png.asset.json";
-import mapPinAsset from "@/assets/map_pin.png.asset.json";
+const logoAsset = { url: "/images/club_do_raul_logo.png" };
+const esquentaHero = { url: "/images/esquenta_clube_do_raul.png" };
+const bgAsset = { url: "/images/BG.png" };
+const mapPinAsset = { url: "/images/map_pin.png" };
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { createCheckout, getTicketLots } from "@/lib/payments.functions";
