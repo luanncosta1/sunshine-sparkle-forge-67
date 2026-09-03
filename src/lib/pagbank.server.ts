@@ -24,8 +24,8 @@ export async function createPagBankCheckout(data: PagBankCheckoutRequest) {
   const token = process.env['PAGBANK_TOKEN'];
   const isSandbox = process.env['PAGBANK_ENV'] !== 'production';
   const baseUrl = isSandbox 
-    ? 'https://sandbox.api.pagseguro.com' 
-    : 'https://api.pagseguro.com';
+    ? 'https://sandbox.api.pagbank.com' 
+    : 'https://api.pagbank.com';
 
   if (!token) {
     throw new Error('PAGBANK_TOKEN is not configured');
