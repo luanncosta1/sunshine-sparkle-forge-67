@@ -25,13 +25,13 @@ const statusInfo: Record<string, StatusDetail> = {
   },
   pending: {
     title: 'Aguardando Pagamento',
-    description: 'Estamos aguardando a confirmação do seu pagamento pelo PagBank.',
+    description: 'Estamos aguardando a confirmação do seu pagamento pelo Stripe.',
     color: 'text-yellow-500',
     icon: 'fa-clock'
   },
   in_analysis: {
     title: 'Em Análise',
-    description: 'Seu pagamento está sendo analisado pelo PagBank. Isso pode levar alguns minutos.',
+    description: 'Seu pagamento está sendo analisado pelo Stripe. Isso pode levar alguns minutos.',
     color: 'text-blue-500',
     icon: 'fa-magnifying-glass'
   },
