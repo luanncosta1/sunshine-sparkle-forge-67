@@ -1,4 +1,4 @@
-// Stripe integration (production-ready) using the official Stripe REST API.
+﻿// Stripe integration (production-ready) using the official Stripe REST API.
 // Runs only on the server; STRIPE_SECRET_KEY is never exposed to the client.
 
 // Ticket prices are sourced from the active lot in the `ticket_lots` table
@@ -84,7 +84,7 @@ export interface StripeCheckoutParams {
 export async function createStripeCheckoutSession(data: StripeCheckoutParams) {
   const session = await stripeRequest("/checkout/sessions", {
     mode: "payment",
-    payment_method_types: ["card"],
+    payment_method_types: ["card", "pix"],
     client_reference_id: data.referenceId,
     success_url: data.successUrl,
     cancel_url: data.cancelUrl,
