@@ -29,6 +29,8 @@ export type Database = {
           quantity: number
           reference_id: string
           status: string
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string | null
           ticket_type: string
           total_price: number
           unit_price: number
@@ -50,6 +52,8 @@ export type Database = {
           quantity?: number
           reference_id: string
           status?: string
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
           ticket_type: string
           total_price: number
           unit_price: number
@@ -71,6 +75,8 @@ export type Database = {
           quantity?: number
           reference_id?: string
           status?: string
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
           ticket_type?: string
           total_price?: number
           unit_price?: number
