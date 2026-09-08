@@ -84,6 +84,7 @@ export interface StripeCheckoutParams {
 export async function createStripeCheckoutSession(data: StripeCheckoutParams) {
   const session = await stripeRequest("/checkout/sessions", {
     mode: "payment",
+    payment_method_types: ["card"],
     client_reference_id: data.referenceId,
     success_url: data.successUrl,
     cancel_url: data.cancelUrl,
