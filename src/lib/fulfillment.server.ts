@@ -40,11 +40,11 @@ export async function processOrderStatus(
     .from("orders")
     .update({
       status: internalStatus,
-      stripe_payment_intent_id: customer.transactionId ?? undefined,
-      stripe_session_id: customer.sessionId ?? undefined,
+      stripe_payment_intent_id: customer.transactionId ?? null,
+      stripe_session_id: customer.sessionId ?? null,
       customer_name: customer.name || order.customer_name,
-      customer_email: customer.email ?? undefined,
-      customer_phone: customer.phone ?? undefined,
+      customer_email: customer.email ?? null,
+      customer_phone: customer.phone ?? null,
       payment_method: customer.paymentMethod || "stripe",
       updated_at: new Date().toISOString(),
     })
