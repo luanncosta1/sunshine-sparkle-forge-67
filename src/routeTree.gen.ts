@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OrderResultRouteImport } from './routes/order-result'
 import { Route as ApiPublicPagbankWebhookRouteImport } from './routes/api/public/pagbank-webhook'
+import { Route as ApiPublicStripeWebhookRouteImport } from './routes/api/public/stripe-webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,35 +29,57 @@ const ApiPublicPagbankWebhookRoute = ApiPublicPagbankWebhookRouteImport.update({
   path: '/api/public/pagbank-webhook',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicStripeWebhookRoute = ApiPublicStripeWebhookRouteImport.update({
+  id: '/api/public/stripe-webhook',
+  path: '/api/public/stripe-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/order-result': typeof OrderResultRoute
   '/api/public/pagbank-webhook': typeof ApiPublicPagbankWebhookRoute
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/order-result': typeof OrderResultRoute
   '/api/public/pagbank-webhook': typeof ApiPublicPagbankWebhookRoute
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/order-result': typeof OrderResultRoute
   '/api/public/pagbank-webhook': typeof ApiPublicPagbankWebhookRoute
+  '/api/public/stripe-webhook': typeof ApiPublicStripeWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/order-result' | '/api/public/pagbank-webhook'
+  fullPaths:
+    | '/'
+    | '/order-result'
+    | '/api/public/pagbank-webhook'
+    | '/api/public/stripe-webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/order-result' | '/api/public/pagbank-webhook'
-  id: '__root__' | '/' | '/order-result' | '/api/public/pagbank-webhook'
+  to:
+    | '/'
+    | '/order-result'
+    | '/api/public/pagbank-webhook'
+    | '/api/public/stripe-webhook'
+  id:
+    | '__root__'
+    | '/'
+    | '/order-result'
+    | '/api/public/pagbank-webhook'
+    | '/api/public/stripe-webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   OrderResultRoute: typeof OrderResultRoute
   ApiPublicPagbankWebhookRoute: typeof ApiPublicPagbankWebhookRoute
+  ApiPublicStripeWebhookRoute: typeof ApiPublicStripeWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -82,6 +105,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPagbankWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/stripe-webhook': {
+      id: '/api/public/stripe-webhook'
+      path: '/api/public/stripe-webhook'
+      fullPath: '/api/public/stripe-webhook'
+      preLoaderRoute: typeof ApiPublicStripeWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -89,6 +119,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   OrderResultRoute: OrderResultRoute,
   ApiPublicPagbankWebhookRoute: ApiPublicPagbankWebhookRoute,
+  ApiPublicStripeWebhookRoute: ApiPublicStripeWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

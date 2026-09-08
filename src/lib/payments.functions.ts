@@ -1,7 +1,7 @@
 
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { TICKET_PRICES, createPagBankCheckout } from "./pagbank.server";
+import { TICKET_PRICES, createStripeCheckoutSession } from "./stripe.server";
 
 export const createCheckout = createServerFn({ method: "POST" })
   .inputValidator((data) => z.object({
@@ -84,30 +84,25 @@ export const createCheckout = createServerFn({ method: "POST" })
       throw new Error('Failed to create order');
     }
 
-    // 4. Call PagBank API
-    const baseUrl = process.env['APP_URL'] || 'https://huggy-launchpad-65.lovable.app';
-    const checkout = await createPagBankCheckout({
-      reference_id: referenceId,
-      items: [{
-        reference_id: ticketType,
-        name: `Ingresso ${ticketLabel} — ${lotLabel} - Clube do Raul`,
-        quantity,
-        unit_amount: unitPrice
-      }],
-      notification_urls: [`${baseUrl}/api/public/pagbank-webhook`],
-      redirect_url: `${baseUrl}/order-result?referenceId=${referenceId}`
+    // 4. Create the Stripe Checkout session
+    const baseUrl = process.env['APP_URL'] || 'https://sunshine-sparkle-forge-67.lovable.app';
+    const session = await createStripeCheckoutSession({
+      referenceId,
+      productName: `Ingresso ${ticketLabel} — ${lotLabel} - Clube do Raul`,
+      unitAmount: unitPrice,
+      quantity,
+      successUrl: `${baseUrl}/order-result?referenceId=${referenceId}`,
+      cancelUrl: `${baseUrl}/order-result?referenceId=${referenceId}&canceled=1`,
+      whatsapp
     });
 
-    // 5. Update order with PagBank checkout ID
-    const checkoutUrl = checkout.links.find((l: any) => l.rel === 'PAY')?.href;
-    const checkoutId = checkout.id;
-
+    // 5. Store the Stripe session id on the order
     await supabaseAdmin
       .from('orders')
-      .update({ pagbank_checkout_id: checkoutId })
+      .update({ stripe_session_id: session.id })
       .eq('id', order.id);
 
-    return { checkoutUrl };
+    return { checkoutUrl: session.url };
   });
 
 // Public availability of ticket lots (safe columns only).
