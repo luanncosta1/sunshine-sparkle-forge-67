@@ -45,7 +45,7 @@ export const createCheckout = createServerFn({ method: "POST" })
 
     if (activeLots && activeLots.length > 0) {
       const available = Math.min(
-        ...activeLots.map((l) => l.total_quantity - l.sold_quantity)
+        ...activeLots.map((l: { total_quantity: number; sold_quantity: number }) => l.total_quantity - l.sold_quantity)
       );
       if (available <= 0) {
         throw new Error('Este lote está esgotado');
